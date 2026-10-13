@@ -14,11 +14,11 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 1019,Nor1 Early Checkin,REV,Mapped,daily row 13,
 1020,Adj Nor1 Early Checkin,REV,Mapped,daily row 13,
 1066,Pet Charge,REV,Mapped,daily row 13,
-1400,Accommodation Package,PKG,Needs review,,Needs confirmation; stops import if present.
-1500,Bed & Breakfast Rate,PKG,Needs review,,Needs confirmation; stops import if present.
-1501,"Dinner, Bed & Breakfast Rate",PKG,Needs review,,Needs confirmation; stops import if present.
-1502,24 Hour Delegate Rate,PKG,Needs review,,Needs confirmation; stops import if present.
-1503,Day Delegate Rate,PKG,Needs review,,Needs confirmation; stops import if present.
+1400,Accommodation Package,PKG,Needs review,,Stops import if present.
+1500,Bed & Breakfast Rate,PKG,Needs review,,Stops import if present.
+1501,"Dinner, Bed & Breakfast Rate",PKG,Needs review,,Stops import if present.
+1502,24 Hour Delegate Rate,PKG,Needs review,,Stops import if present.
+1503,Day Delegate Rate,PKG,Needs review,,Stops import if present.
 2000,Restaurant Breakfast Food,REV,Mapped,daily row 30,
 2001,Restaurant Lunch Food,REV,Mapped,daily row 31,
 2002,Restaurant Afternoon Tea,REV,Mapped,daily row 33,
@@ -99,12 +99,12 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 3054,Nor1 ADJ Bottle of White Wine,REV,Mapped,daily row 34,
 3059,Nor1 Bottle of Red Wine,REV,Mapped,daily row 34,
 3063,Nor1 ADJ Bottle of Red Wine,REV,Mapped,daily row 34,
-3101,Soft Drink 5% VAT,REV,Needs review,,Needs confirmation; stops import if present.
+3101,Soft Drink 5% VAT,REV,Needs review,,Stops import if present.
 3157,Banquet Lunch Beverage,REV,Mapped,daily row 50,
 3158,Banquet Dinner Beverage,REV,Mapped,daily row 51,
 3159,Banquet Breakfast Beverage,REV,Mapped,daily row 49,
 3160,Banquet Late Beverage,REV,Mapped,daily row 51,
-3500,Minibar,REV,Needs review,,Needs confirmation; stops import if present.
+3500,Minibar,REV,Needs review,,Stops import if present.
 3700,Wedding Beverage,REV,Mapped,daily row 48,
 3750,Wedding Soft Beverage,REV,Mapped,daily row 48,
 3800,Conference Breakfast Beverage,REV,Mapped,daily row 49,
@@ -113,8 +113,8 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 3850,Conference Breakfast Soft Beverage,REV,Mapped,daily row 49,
 3855,Conference Lunch Soft Beverage,REV,Mapped,daily row 50,
 3860,Conference Dinner Soft Beverage,REV,Mapped,daily row 51,
-4000,Telephone,REV,Needs review,,Needs confirmation; stops import if present.
-4050,Fax,REV,Needs review,,Needs confirmation; stops import if present.
+4000,Telephone,REV,Mapped,daily row 275,
+4050,Fax,REV,Mapped,daily row 275,
 4051,Nor1 Pet Package,REV,Mapped,daily row 13,
 4300,Restaurant Miscellaneous,REV,Mapped,daily row 39,
 4301,Bar Miscellaneous,REV,Mapped,daily row 28,
@@ -122,38 +122,38 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 4305,Conference Miscellaneous,REV,Mapped,daily row 53,
 4306,Wedding Miscallaeneous,REV,Mapped,daily row 53,
 4307,Banquet Miscallaeneous,REV,Mapped,daily row 53,
-4440,Sundries Vatable,REV,Needs review,,Needs confirmation; stops import if present.
-4450,Visitor Paid Out,REV,Needs review,,Needs confirmation; stops import if present.
-4460,VPO Postage,REV,Needs review,,Needs confirmation; stops import if present.
-4470,VPO Tickets,REV,Needs review,,Needs confirmation; stops import if present.
-4480,VPO Taxi Fare,REV,Needs review,,Needs confirmation; stops import if present.
-4490,VPO City Tour,REV,Needs review,,Needs confirmation; stops import if present.
-4500,Porterage Service,REV,Needs review,,Needs confirmation; stops import if present.
+4440,Sundries Vatable,REV,Mapped,daily row 275,
+4450,Visitor Paid Out,REV,Mapped,daily row 275,
+4460,VPO Postage,REV,Mapped,daily row 275,
+4470,VPO Tickets,REV,Mapped,daily row 275,
+4480,VPO Taxi Fare,REV,Mapped,daily row 275,
+4490,VPO City Tour,REV,Mapped,daily row 275,
+4500,Porterage Service,REV,Mapped,daily row 275,
 4501,Luggage Storage Fee,REV,Mapped,daily row 275,
-4510,Newspaper,REV,Needs review,,Needs confirmation; stops import if present.
-4550,Corkage,REV,Needs review,,Needs confirmation; stops import if present.
+4510,Newspaper,REV,Mapped,daily row 275,
+4550,Corkage,REV,Mapped,daily row 275,
 4551,Wedding Corkage,REV,Mapped,daily row 53,
 4552,Banquet Corkage,REV,Mapped,daily row 53,
-4600,Laundry/Dry Cleaning,REV,Needs review,,Needs confirmation; stops import if present.
-4700,Theatre Tickets,REV,Needs review,,Needs confirmation; stops import if present.
-4720,Wellness - Sleep Retreat,REV,Needs review,,Needs confirmation; stops import if present.
-4726,Wellness - Robe & Slippers,REV,Needs review,,Needs confirmation; stops import if present.
-4728,Nor 1 Wellness - Sleep Retreat,REV,Needs review,,Needs confirmation; stops import if present.
-4733,Nor 1 Wellness - Face Mask,REV,Needs review,,Needs confirmation; stops import if present.
-4734,Nor1 Wellness - Robe & Slippers,REV,Needs review,,Needs confirmation; stops import if present.
+4600,Laundry/Dry Cleaning,REV,Mapped,daily row 275,
+4700,Theatre Tickets,REV,Mapped,daily row 53,
+4720,Wellness - Sleep Retreat,REV,Mapped,daily row 275,
+4726,Wellness - Robe & Slippers,REV,Mapped,daily row 275,
+4728,Nor 1 Wellness - Sleep Retreat,REV,Mapped,daily row 275,
+4733,Nor 1 Wellness - Face Mask,REV,Mapped,daily row 275,
+4734,Nor1 Wellness - Robe & Slippers,REV,Mapped,daily row 275,
 4750,Car Parking,REV,Mapped,daily row 278,
-4800,Pay Movies,REV,Needs review,,Needs confirmation; stops import if present.
-4810,Communication Service,REV,Needs review,,Needs confirmation; stops import if present.
-4820,Games,REV,Needs review,,Needs confirmation; stops import if present.
-4850,Health Club,REV,Needs review,,Needs confirmation; stops import if present.
+4800,Pay Movies,REV,Mapped,daily row 275,
+4810,Communication Service,REV,Mapped,daily row 275,
+4820,Games,REV,Mapped,daily row 275,
+4850,Health Club,REV,Mapped,daily row 275,
 4900,Conference Room Hire,REV,Mapped,daily row 40,
 4901,Wedding Room Hire,REV,Mapped,daily row 40,
 4902,Banquet Room Hire,REV,Mapped,daily row 40,
 4910,Equipment Hire,REV,Mapped,daily row 54,
 4911,Conference Entertainment,REV,Mapped,daily row 53,
 4912,Conference External Supplies,REV,Mapped,daily row 53,
-4920,Photocopying,REV,Needs review,,Needs confirmation; stops import if present.
-4930,Conference,REV,Needs review,,Needs confirmation; stops import if present.
+4920,Photocopying,REV,Mapped,daily row 275,
+4930,Conference,REV,Mapped,daily row 53,
 4931,Conference Tea and Coffee,REV,Mapped,daily row 48,
 4950,Wedding Equipment Hire,REV,Mapped,daily row 54,
 4951,Wedding Entertainment,REV,Mapped,daily row 53,
@@ -162,7 +162,7 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 4961,Banquet Entertainment,REV,Mapped,daily row 53,
 4962,Banquet External Supllies,REV,Mapped,daily row 53,
 5000,Service Charge,REV,Mapped,daily row 282,
-5001,Tray Charge,REV,Needs review,,Needs confirmation; stops import if present.
+5001,Tray Charge,REV,Mapped,daily row 39,
 5010,Gratuities,REV,Mapped,daily row 283,
 7000,VAT@20%,NON_REV,Mapped,daily row 286,
 7001,VAT@5%,NON_REV,Mapped,daily row 286,
@@ -173,11 +173,11 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 7012,VAT@2.5%,NON_REV,Mapped,daily row 286,
 7015,VAT Exempt,NON_REV,Mapped,daily row 286,
 7102,Aberdeen Levy Fee - 20% VAT,REV,Mapped,daily row 277,
-7400,Package Profit,REV,Needs review,,Needs confirmation; stops import if present.
-7405,Package Loss,REV,Needs review,,Needs confirmation; stops import if present.
+7400,Package Profit,REV,Needs review,,Stops import if present.
+7405,Package Loss,REV,Needs review,,Stops import if present.
 8000,Donation - Trees For Life,NON_REV,Mapped,daily row 285,
 9000,Cash Payment,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
-9001,Cheque Payment,PAY,Needs review,,Needs confirmation; stops import if present.
+9001,Cheque Payment,PAY,Needs review,,Stops import if present.
 9002,Ledger Payment,PAY,Mapped,guest row 299,
 9003,American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
 9004,Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
@@ -189,7 +189,7 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 9011,Voucher Redemption,PAY,Mapped,guest row 297,
 9015,Pay By Link,PAY,Mapped,ar row 304; deposit row 310; guest row 294,
 9020,POS Cash,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
-9021,POS Cheque,PAY,Needs review,,Needs confirmation; stops import if present.
+9021,POS Cheque,PAY,Needs review,,Stops import if present.
 9024,POS American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
 9025,POS Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
 9026,POS Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
@@ -202,7 +202,7 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 9034,POS ITISON,PAY,Mapped,guest row 297,
 9035,POS Wowcher,PAY,Mapped,guest row 297,
 9040,DEPOSIT Cash,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
-9041,DEPOSIT Cheque,PAY,Needs review,,Needs confirmation; stops import if present.
+9041,DEPOSIT Cheque,PAY,Needs review,,Stops import if present.
 9043,DEPOSIT American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
 9044,DEPOSIT Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
 9045,DEPOSIT Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
@@ -212,7 +212,7 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 9050,DEPOSIT BACS,PAY,Mapped,ar row 305; deposit row 311; guest row 296,
 9051,DEPOSIT Voucher Redemption,PAY,Mapped,guest row 297,
 9060,AR Cash,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
-9061,AR Cheque,PAY,Needs review,,Needs confirmation; stops import if present.
+9061,AR Cheque,PAY,Needs review,,Stops import if present.
 9063,AR American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
 9064,AR Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
 9065,AR Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
@@ -230,15 +230,15 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 9103,Offline - Maestro,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
 9104,Offline - JCB,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
 9105,Offline - Diners Club,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
-9199,Direct Settlement,PAY,Needs review,,Needs confirmation; stops import if present.
+9199,Direct Settlement,PAY,Needs review,,Stops import if present.
 9664,Web Payment,PAY,Mapped,ar row 304; deposit row 310; guest row 294,
-9665,Web Payment - Premier Spa,PAY,Needs review,,Needs confirmation; stops import if present.
-9950,Balance Carried Forward @20%,MF_INTC,Needs review,,Needs confirmation; stops import if present.
-9951,Balance Carried Forward @0%,MF_INTC,Needs review,,Needs confirmation; stops import if present.
-9990,Deposit Matured,MF_INTP,Needs review,,Needs confirmation; stops import if present.
-9991,Deposit Carried Forward,MF_INTP,Needs review,,Needs confirmation; stops import if present.
-9995,A/R Balance Forward,MF_INTC,Needs review,,Needs confirmation; stops import if present.
-9996,A/R Credit Card Transfer,MF_INTC,Needs review,,Needs confirmation; stops import if present.
-9997,Currency Exchange Paid Out,MF_INTC,Needs review,,Needs confirmation; stops import if present.
-9998,Cheque Shift Drop,MF_INTC,Needs review,,Needs confirmation; stops import if present.
-9999,Cash Shift Drop,MF_INTC,Needs review,,Needs confirmation; stops import if present.
+9665,Web Payment - Premier Spa,PAY,Needs review,,Stops import if present.
+9950,Balance Carried Forward @20%,MF_INTC,Needs review,,Stops import if present.
+9951,Balance Carried Forward @0%,MF_INTC,Needs review,,Stops import if present.
+9990,Deposit Matured,MF_INTP,Needs review,,Stops import if present.
+9991,Deposit Carried Forward,MF_INTP,Needs review,,Stops import if present.
+9995,A/R Balance Forward,MF_INTC,Needs review,,Stops import if present.
+9996,A/R Credit Card Transfer,MF_INTC,Needs review,,Stops import if present.
+9997,Currency Exchange Paid Out,MF_INTC,Needs review,,Stops import if present.
+9998,Cheque Shift Drop,MF_INTC,Needs review,,Stops import if present.
+9999,Cash Shift Drop,MF_INTC,Needs review,,Stops import if present.
