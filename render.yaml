@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: banking-importer
+    runtime: python
+    plan: free
+    branch: work
+    rootDir: banking-importer
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 180 web_app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: BANKING_HOSTED
+        value: "1"
+      - key: BANKING_SESSION_SECRET
+        generateValue: true
+      - key: BANKING_PASSWORD
+        sync: false

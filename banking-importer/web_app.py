@@ -1,5 +1,8 @@
 """Local browser interface for the banking importer (Windows and macOS)."""
 import csv
+import os
+import time
+from datetime import timedelta
 import io
 import secrets
 import subprocess
@@ -8,11 +11,73 @@ import tempfile
 import threading
 import webbrowser
 from pathlib import Path
-from flask import Flask, abort, render_template, request, send_file, session
+from flask import Flask, abort, render_template, request, send_file, session, redirect, url_for
 
 HERE = Path(__file__).resolve().parent
 app = Flask(__name__)
-app.secret_key = secrets.token_hex(32)
+HOSTED = os.environ.get('BANKING_HOSTED') == '1' or bool(os.environ.get('RENDER'))
+PASSWORD = os.environ.get('BANKING_PASSWORD')
+if HOSTED and (not PASSWORD or not os.environ.get('BANKING_SESSION_SECRET')):
+    raise RuntimeError('Hosted mode requires BANKING_PASSWORD and BANKING_SESSION_SECRET.')
+from werkzeug.security import generate_password_hash, check_password_hash
+PASSWORD_HASH = generate_password_hash(PASSWORD) if PASSWORD else None
+app.secret_key = os.environ.get('BANKING_SESSION_SECRET') or secrets.token_hex(32)
+app.config.update(SESSION_COOKIE_SECURE=HOSTED, SESSION_COOKIE_HTTPONLY=True,
+                  PERMANENT_SESSION_LIFETIME=timedelta(hours=8))
+login_failures = []
+
+@app.before_request
+def protect_pages():
+    if PASSWORD_HASH and request.endpoint not in ('login', 'robots', 'health') and not session.get('authenticated'):
+        return redirect(url_for('login'))
+
+@app.after_request
+def privacy_headers(response):
+    response.headers['X-Robots-Tag'] = 'noindex, nofollow, noarchive'
+    response.headers['Cache-Control'] = 'no-store'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; form-action 'self'"
+    return response
+
+@app.get('/robots.txt')
+def robots():
+    return 'User-agent: *\nDisallow: /\n', 200, {'Content-Type': 'text/plain'}
+
+@app.get('/health')
+def health():
+    return 'OK', 200
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if not PASSWORD_HASH:
+        return redirect(url_for('index'))
+    session.setdefault('csrf', secrets.token_urlsafe(32))
+    error = None
+    if request.method == 'POST':
+        if not secrets.compare_digest(request.form.get('csrf', ''), session['csrf']):
+            abort(403)
+        now = time.monotonic()
+        login_failures[:] = [t for t in login_failures if now - t < 300]
+        if len(login_failures) >= 5:
+            return render_template('login.html', csrf=session['csrf'], error='Too many attempts. Wait five minutes and try again.'), 429
+        if check_password_hash(PASSWORD_HASH, request.form.get('password', '')):
+            session.clear()
+            session['authenticated'] = True
+            session['csrf'] = secrets.token_urlsafe(32)
+            session.permanent = True
+            login_failures.clear()
+            return redirect(url_for('index'))
+        login_failures.append(now)
+        error = 'Incorrect password.'
+    return render_template('login.html', csrf=session['csrf'], error=error)
+
+@app.post('/logout')
+def logout():
+    if not secrets.compare_digest(request.form.get('csrf', ''), session.get('csrf', '')):
+        abort(403)
+    app.extensions.get('results', {}).pop(session.get('result'), None)
+    session.clear()
+    return redirect(url_for('login'))
 app.config.update(MAX_CONTENT_LENGTH=20 * 1024 * 1024, SESSION_COOKIE_SAMESITE='Strict')
 
 @app.route('/', methods=['GET', 'POST'])

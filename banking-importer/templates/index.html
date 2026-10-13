@@ -21,5 +21,5 @@ body{font-family:system-ui,sans-serif;background:#f4f6f8;color:#183046;margin:0}
 {% if result.changes %}<details><summary>Review {{result.changes|length}} proposed entries</summary><div class="scroll"><table><thead><tr><th>Cell</th><th>Amount</th><th>Report details</th></tr></thead><tbody>{% for row in result.changes %}<tr><td>{{row.Cell}}</td><td>{{row.Amount}}</td><td>{{row.Source}}</td></tr>{% endfor %}</tbody></table></div></details>{% endif %}
 {% if result.success %}<p>Open the downloaded copy in Excel and recalculate the workbook. Cash banked and PDQ totals still need separate input. Use this copy for the next daily import.</p>{% endif %}
 {% endif %}
-<footer class="muted">Runs locally on your computer. Your original files are preserved. Downloads remain available until you submit another import or close the program.</footer>
-</main></body></html>
+<footer class="muted">{% if config.SESSION_COOKIE_SECURE %}Files are processed on this private deployment.{% else %}Runs locally on your computer.{% endif %} Your original files are preserved. Downloads remain available until you submit another import or close the program.</footer>
+{% if session.authenticated %}<form method="post" action="/logout"><input type="hidden" name="csrf" value="{{csrf}}"><button type="submit">Log out</button></form>{% endif %}</main></body></html>

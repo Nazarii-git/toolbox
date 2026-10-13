@@ -58,3 +58,12 @@ A dated explanation is appended to the day's row 336, preserving existing text. 
 Pet Charge (1066) and Nor1 Pet Package (4051) both use Accommodation (13), as confirmed by the user. `unmapped-codes-review.csv` lists all remaining unmapped codes with blank columns for destination and notes.
 
 Miscellaneous charges confirmed in chat use Other Misc Income (275). Theatre Tickets (4700) and Conference (4930) use C&B Misc Income (53); Tray Charge (5001) uses Restaurant Misc Income (39). Soft Drink (3101) and Minibar (3500) use Bar Beverage-General (23). Package Profit (7400) and Package Loss (7405) still need confirmation.
+
+## Deploy the password-protected website on Render
+1. Create/sign into a Render account, then choose **New > Blueprint** and connect `Nazarii-git/toolbox` through GitHub. Select the **work** branch, where `render.yaml` is stored.
+2. Review the free web service and enter a strong, unique **BANKING_PASSWORD** in Render's configuration. Do not put it in Git or send it in chat. The Blueprint generates a session secret automatically.
+3. Deploy and open the service URL shown by Render. Log in with your password. Updates pushed to `work` deploy automatically when Render auto-deploy is enabled.
+
+Hosted mode refuses to start without a password and session secret. Login protects both uploads and downloads. Pages send no-index headers and robots.txt disallows crawling; these are indexing requests, while the password provides access protection. Five failed logins cause a five-minute cooldown shared by this single service process. This cooldown resets after a restart. Sessions expire after eight hours and HTTPS cookies are used on Render. Log out clears your downloadable results.
+
+This is a shared-password development site, not a multi-user account system. Free services may sleep or restart; downloaded results are in memory and are lost on restart/deployment. Hosting means uploaded documents are processed on Render, rather than your Mac. Keep the single-worker configuration so downloads stay in the same process. Local Windows/Mac mode remains available without a password; setting BANKING_PASSWORD enables login locally too.
