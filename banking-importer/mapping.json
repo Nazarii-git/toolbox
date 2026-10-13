@@ -1,6 +1,6 @@
 {
   "confirmed": true,
-  "notes": "Existing grouping confirmed by user; additional direct bar/restaurant, VAT, named payment-method, no-show/cancellation/long-stay, visitor levy, gratuity and donation mappings derived from posting catalogue and workbook row labels. Other codes require review. Payment ledger is determined from the report section, not the code prefix. User confirmed regular outlet activity uses rows 13\u201354 and all functions/conferences use C&B. Room service and Nor1 meals use Restaurant meal rows; untimed wine uses Restaurant Beverage-General. Untimed event food/beverage uses C&B General, event tea/coffee uses Beverage-General; event corkage, entertainment and external supplies use C&B Misc Income. These category defaults are documented for review. User maps miscellaneous charges to Other Misc Income (275), Theatre Tickets and generic Conference to C&B Misc Income (53), Tray Charge to Restaurant Misc Income (39). Soft Drink, Minibar and Package Profit/Loss remain blocked.",
+  "notes": "Existing grouping confirmed by user; additional direct bar/restaurant, VAT, named payment-method, no-show/cancellation/long-stay, visitor levy, gratuity and donation mappings derived from posting catalogue and workbook row labels. Other codes require review. Payment ledger is determined from the report section, not the code prefix. User confirmed regular outlet activity uses rows 13\u201354 and all functions/conferences use C&B. Room service and Nor1 meals use Restaurant meal rows; untimed wine uses Restaurant Beverage-General. Untimed event food/beverage uses C&B General, event tea/coffee uses Beverage-General; event corkage, entertainment and external supplies use C&B Misc Income. These category defaults are documented for review. User maps miscellaneous charges to Other Misc Income (275), Theatre Tickets and generic Conference to C&B Misc Income (53), Tray Charge to Restaurant Misc Income (39). Soft Drink, Minibar and Package Profit/Loss remain blocked. User confirmed Soft Drink (3101) and Minibar (3500) use Bar Beverage-General (23).",
   "rules": [
     {
       "group": "ar",
@@ -747,6 +747,15 @@
         "9002"
       ],
       "sign": -1
+    },
+    {
+      "group": "daily",
+      "row": 23,
+      "codes": [
+        "3101",
+        "3500"
+      ],
+      "sign": 1
     }
   ],
   "catalogue": {

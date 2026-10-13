@@ -4,8 +4,6 @@ Code,Name,Type,Banking row to confirm,Notes
 1501,"Dinner, Bed & Breakfast Rate",PKG,,
 1502,24 Hour Delegate Rate,PKG,,
 1503,Day Delegate Rate,PKG,,
-3101,Soft Drink 5% VAT,REV,,
-3500,Minibar,REV,,
 7400,Package Profit,REV,,
 7405,Package Loss,REV,,
 9001,Cheque Payment,PAY,,

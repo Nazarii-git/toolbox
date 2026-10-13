@@ -99,12 +99,12 @@ Code,Name,Source group,Status,Mapped destinations,Notes
 3054,Nor1 ADJ Bottle of White Wine,REV,Mapped,daily row 34,
 3059,Nor1 Bottle of Red Wine,REV,Mapped,daily row 34,
 3063,Nor1 ADJ Bottle of Red Wine,REV,Mapped,daily row 34,
-3101,Soft Drink 5% VAT,REV,Needs review,,Stops import if present.
+3101,Soft Drink 5% VAT,REV,Mapped,daily row 23,
 3157,Banquet Lunch Beverage,REV,Mapped,daily row 50,
 3158,Banquet Dinner Beverage,REV,Mapped,daily row 51,
 3159,Banquet Breakfast Beverage,REV,Mapped,daily row 49,
 3160,Banquet Late Beverage,REV,Mapped,daily row 51,
-3500,Minibar,REV,Needs review,,Stops import if present.
+3500,Minibar,REV,Mapped,daily row 23,
 3700,Wedding Beverage,REV,Mapped,daily row 48,
 3750,Wedding Soft Beverage,REV,Mapped,daily row 48,
 3800,Conference Breakfast Beverage,REV,Mapped,daily row 49,
