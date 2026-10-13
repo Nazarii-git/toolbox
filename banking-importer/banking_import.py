@@ -75,10 +75,14 @@ def parse_report(path):
     reconciles(sum((v for c, (_, v) in daily.items() if c in revenue_codes), Decimal(0)), revenue, 'Revenue lines')
     require(sum((v for c, (_, v) in daily.items() if c in nonrevenue_codes), Decimal(0)) == nonrevenue, 'Non-revenue lines do not reconcile.')
     require(sum((v for c, (_, v) in daily.items() if c in payment_codes), Decimal(0)) == payments, 'Payment lines do not reconcile.')
+    split_exceptions = []
     for code, (_, value) in daily.items():
         if code in payment_codes:
             split = sum((g.get(code, ('', Decimal(0)))[1] for g in (groups['guest'], groups['ar'], groups['deposit'])), Decimal(0))
-            require(value == split, f'Guest/AR/deposit breakdown does not reconcile for {code}.')
+            if value != split and code == '9002':
+                split_exceptions.append(f'Ledger Payment: daily {value}, ledger detail {split}')
+            else:
+                require(value == split, f'Guest/AR/deposit breakdown does not reconcile for {code}.')
     require(field(ar_text, 'Payments') == 0 or bool(groups['ar']), 'Nonzero AR payments lack transaction detail; manual review required.')
     for name, text in [('guest', guest_text), ('deposit', deposit_text)]:
         require(sum((v for _, v in groups[name].values()), Decimal(0)) == field(text, 'Payments'), f'{name} payment total does not reconcile.')
@@ -93,7 +97,7 @@ def parse_report(path):
             'transfer': field(deposit_text, 'Deposits Transfered at Check-In'),
             'opening': {320: field(first, 'Balance Brought Forward'), 321: field(ar_text, 'Balance Yesterday'), 322: field(deposit_text, 'Balance Yesterday')},
             'balances': {320: field(guest_text, 'Balance Today'), 321: field(ar_text, 'Balance Today'), 322: field(deposit_text, 'Balance Today')},
-            'revenue': revenue, 'nonrevenue': nonrevenue, 'payments': payments, 'payment_codes': set(payment_codes)}
+            'revenue': revenue, 'nonrevenue': nonrevenue, 'payments': payments, 'payment_codes': set(payment_codes), 'split_exceptions': split_exceptions}
 
 def workbook_target(path, date):
     with zipfile.ZipFile(path) as z:
@@ -160,7 +164,9 @@ def plan(report, config):
     rows[313] = (report['transfer'], 'Deposit ledger: Deposits Transfered at Check-In')
     reconciles(sum((v for r, (v, _) in rows.items() if 13 <= r <= 278), Decimal(0)), report['revenue'], 'Mapped revenue')
     require(sum((v for r, (v, _) in rows.items() if 282 <= r <= 286), Decimal(0)) == report['nonrevenue'], 'Mapped non-revenue does not reconcile.')
-    require(sum((v for r, (v, _) in rows.items() if 290 <= r <= 312), Decimal(0)) == -report['payments'], 'Mapped payments do not reconcile.')
+    mapped_payments = sum((v for r, (v, _) in rows.items() if 290 <= r <= 312), Decimal(0))
+    allowed_difference = -sum((report['groups'][g].get('9002', ('', Decimal(0)))[1] for g in ('guest', 'ar', 'deposit')), Decimal(0)) + report['groups']['daily'].get('9002', ('', Decimal(0)))[1]
+    require(mapped_payments + report['payments'] == allowed_difference, 'Mapped payments do not reconcile.')
     return rows
 
 def check_ledgers(report, col, cells, rows):
@@ -191,6 +197,19 @@ def check_ledgers(report, col, cells, rows):
         321: opening[321] + total(299, 299) - total(301, 306),
         322: opening[322] + total(313, 313) - total(307, 312),
     }
+    guest_difference = calculated[320] - report['balances'][320]
+    ar_difference = calculated[321] - report['balances'][321]
+    report['corrections'] = None
+    if not errors and guest_difference and guest_difference == -ar_difference and calculated[322] == report['balances'][322]:
+        for row, correction in ((292, guest_difference), (302, ar_difference)):
+            value, source = rows.get(row, (Decimal(0), 'No reported card payments'))
+            rows[row] = (value + correction, source + f'; Guest/AR correction {correction:+.2f}')
+        calculated[320] -= guest_difference
+        calculated[321] -= ar_difference
+        note = (f'{report["date"].strftime("%d.%m.%Y")} Guest/AR report discrepancy: '
+                f'Guest Cards {guest_difference:+.2f}, AR Cards {ar_difference:+.2f}. '
+                'Equal-and-opposite correction; red cells require review.')
+        report['corrections'] = {'rows': [292, 302], 'note': note}
     difference = calculated[320] - report['balances'][320]
     # A positive Differences entry reduces the guest ledger closing balance.
     if not errors and difference and abs(difference) <= Decimal('0.02'):
@@ -202,14 +221,70 @@ def check_ledgers(report, col, cells, rows):
         checks.append((row, status, actual, expected))
         if status == 'FAIL':
             errors.append(f'{col}{row} calculated {actual}; report {expected}; difference {actual - expected}.')
+    if report.get('split_exceptions') and not report.get('corrections'):
+        errors.append('Payment breakdown exception did not resolve through a matching Guest/AR card correction.')
     return checks, errors
 
-def _write_copy(source, output, target, col, rows):
+def correction_styles(src, target, col, corrections):
+    if not corrections:
+        return None, {}
+    from copy import deepcopy
+    raw = src.read('xl/styles.xml').decode('utf-8')
+    root = ET.fromstring(raw)
+    fills, xfs = root.find('s:fills', NS), root.find('s:cellXfs', NS)
+    fill_id = len(fills)
+    fill = ET.fromstring('<fill xmlns="' + NS['s'] + '"><patternFill patternType="solid"><fgColor rgb="FFFF0000"/><bgColor indexed="64"/></patternFill></fill>')
+    cells = {c.attrib['r']: c for c in ET.fromstring(src.read(target)).findall('.//s:c', NS)}
+    styles, fragments = {}, []
+    for row in corrections['rows']:
+        cell = cells.get(f'{col}{row}')
+        require(cell is not None, f'Missing card correction cell {col}{row}')
+        xf = deepcopy(xfs[int(cell.attrib.get('s', '0'))])
+        xf.set('fillId', str(fill_id)); xf.set('applyFill', '1')
+        styles[row] = len(xfs) + len(fragments)
+        fragments.append(ET.tostring(xf, encoding='unicode'))
+    def extend(raw, name, fragment, count):
+        pattern = r'<' + name + r'\b[^>]*>.*?</' + name + '>'
+        match = re.search(pattern, raw, re.S)
+        require(match is not None, f'Unsupported styles section {name}')
+        block = re.sub(r'count="\d+"', f'count="{count}"', match[0], count=1)
+        block = block.replace('</' + name + '>', fragment + '</' + name + '>')
+        return raw[:match.start()] + block + raw[match.end():]
+    raw = extend(raw, 'fills', ET.tostring(fill, encoding='unicode'), fill_id + 1)
+    raw = extend(raw, 'cellXfs', ''.join(fragments), len(xfs) + len(fragments))
+    return raw.encode('utf-8'), styles
+
+def append_explanation(src, text, ref, note):
+    from xml.sax.saxutils import escape
+    pattern = r'<c\b[^>]*\br="' + ref + r'"[^>]*?(?:/>|>.*?</c>)'
+    match = re.search(pattern, text, re.S)
+    require(match is not None, f'Missing explanation cell {ref}')
+    cell = ET.fromstring(match[0].replace('<c ', '<c xmlns="' + NS['s'] + '" ', 1))
+    require(cell.find('s:f', NS) is None, f'Explanation {ref} contains a formula.')
+    existing = ''
+    if cell.attrib.get('t') == 's':
+        strings = ET.fromstring(src.read('xl/sharedStrings.xml')).findall('s:si', NS)
+        existing = ''.join(strings[int(cell.find('s:v', NS).text)].itertext())
+    elif cell.attrib.get('t') == 'inlineStr':
+        existing = ''.join(cell.find('s:is', NS).itertext())
+    else:
+        value = cell.find('s:v', NS)
+        existing = value.text or '' if value is not None else ''
+    value = existing + ('\n' if existing else '') + note
+    opening = match[0].split('>')[0].rstrip('/')
+    opening = re.sub(r'\s+t="[^"]*"', '', opening)
+    replacement = opening + ' t="inlineStr"><is><t xml:space="preserve">' + escape(value) + '</t></is></c>'
+    return text[:match.start()] + replacement + text[match.end():]
+
+def _write_copy(source, output, target, col, rows, corrections=None):
     require(source.resolve() != output.resolve(), 'Output must be a separate workbook.')
     require(not output.exists(), f'Output already exists: {output}')
     with zipfile.ZipFile(source) as src, zipfile.ZipFile(output, 'x') as dst:
+        style_data, red_styles = correction_styles(src, target, col, corrections)
         for entry in src.infolist():
             data = src.read(entry.filename)
+            if entry.filename == 'xl/styles.xml' and corrections:
+                data = style_data
             if entry.filename == target:
                 text = data.decode('utf-8')
                 for row, (value, _) in rows.items():
@@ -221,19 +296,23 @@ def _write_copy(source, output, target, col, rows):
                     require('<f' not in old, f'Refusing to replace formula {ref}')
                     opening = old.split('>')[0].rstrip('/') + '>'
                     opening = re.sub(r'\s+t="[^"]*"', '', opening)
+                    if row in red_styles:
+                        opening = re.sub(r'\s+s="[^"]*"', '', opening[:-1]) + f' s="{red_styles[row]}">'
                     replacement = opening + '<v>' + str(value) + '</v></c>'
                     text = text[:match.start()] + replacement + text[match.end():]
+                if corrections:
+                    text = append_explanation(src, text, col + '336', corrections['note'])
                 data = text.encode('utf-8')
             dst.writestr(entry, data)
 
-def write_copy(source, output, target, col, rows):
+def write_copy(source, output, target, col, rows, corrections=None):
     # Prepare an entire copy before exposing the final filename.
     import tempfile
     require(source.resolve() != output.resolve(), 'Output must be a separate workbook.')
     require(not output.exists(), f'Output already exists: {output}')
     with tempfile.TemporaryDirectory(dir=output.parent) as staging:
         temp = Path(staging) / 'prepared.xlsx'
-        _write_copy(source, temp, target, col, rows)
+        _write_copy(source, temp, target, col, rows, corrections)
         # Exclusive creation prevents accidental replacement of an existing output.
         try:
             with output.open('xb') as final, temp.open('rb') as prepared:
@@ -272,6 +351,8 @@ def run():
         writer.writerow(['Status', 'Date', 'Sheet', 'Cell', 'Amount', 'Source'])
         for row, (value, source) in sorted(rows.items()):
             writer.writerow(['CONFIRMED' if config.get('confirmed') else 'PROPOSED - confirm grouping', report['date'], sheet, f'{col}{row}', str(value), source])
+        if report.get('corrections'):
+            writer.writerow(['REVIEW REQUIRED', report['date'], sheet, f'{col}292 / {col}302', '', report['corrections']['note']])
         for note in ROUNDING_NOTES:
             writer.writerow(['ROUNDING NOTICE', report['date'], sheet, '', '', note])
         for row, status, actual, expected in ledger_checks:
@@ -281,13 +362,15 @@ def run():
     print(f'Review created: {review}\nDate: {report["date"]}; destination: {sheet}, column {col}\nRevenue, non-revenue, payments and ledger breakdown checks passed.')
     for note in ROUNDING_NOTES:
         print('Rounding notice: ' + note)
+    if report.get('corrections'):
+        print('Review required: ' + report['corrections']['note'])
     for row, status, actual, expected in ledger_checks:
         print(f'{status}: {col}{row} calculated {actual}, report {expected}')
     if args.apply:
         require(not ledger_errors, 'Workbook not written: ' + ' '.join(ledger_errors))
         require(config.get('confirmed') is True, 'Grouping is not confirmed. Review mapping.json with your banking rules before setting confirmed to true.')
         output = args.output_dir / f'{args.workbook.stem}-updated-{report["date"]}.xlsx'
-        write_copy(args.workbook, output, target, col, rows)
+        write_copy(args.workbook, output, target, col, rows, report.get('corrections'))
         print(f'Workbook copy created: {output}\nOpen in Excel, calculate the workbook, and compare closing balances in the review CSV.')
     else:
         print('Preview only: no workbook changed.')

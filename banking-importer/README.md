@@ -49,3 +49,8 @@ Choose separate output directories for separate runs. Without `--apply`, only a 
 Regular room-service food/drinks and Nor1 meal extras use Restaurant rows by meal (30–38); untimed Nor1 wine uses Restaurant Beverage-General (34). Night postings join Dinner. Accommodation extras and their adjustments join Accommodation (13), preserving the report sign.
 
 Ballroom, banquet, conference and wedding postings all use C&B rows 40–54: room hire 40; food 43–47; beverage 48–52; miscellaneous 53; equipment/AV hire 54. Untimed food/drinks and tea/coffee use General rows. Corkage, entertainment and external supplies use C&B Misc Income. These defaults preserve totals while making the category choices explicit; adjust the mapping if your hotel's accounting treatment differs.
+
+## Guest / A/R report exceptions
+When opening balances match, deposit closing balances match, and guest/A/R closing discrepancies are exactly equal and opposite, the importer transfers that amount between Guest Cards (292) and A/R Cards (302). It adds the correction to the report-derived card figures, preserves the signs and highlights both cells with a red fill. All three closing ledger balances must then match before export. Corrected card cells can be negative if the adjustment reverses a payment.
+
+A dated explanation is appended to the day's row 336, preserving existing text. The CSV and browser show a review-required notice. This correction balances the report but does not establish which actual card transaction was adjusted; review the red cells against your records. Missing opening balances, unequal discrepancies, deposit mismatches, unknown codes and other inconsistent payment splits still block export. Ordinary guest rounding up to 2p continues to use Differences (300).

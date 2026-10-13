@@ -78,6 +78,40 @@ class ImportTests(unittest.TestCase):
         rows = importer.plan(report, self.config)
         self.assertEqual(rows[34][0], importer.Decimal('10.00'))
 
+    def test_equal_opposite_correction_and_unrelated_blocker(self):
+        import xml.etree.ElementTree as ET
+        report = self.report([DAILY, LEDGERS, MANAGER])
+        cells = {}
+        for row in (320, 321, 322):
+            cells[f'H{row}'] = ET.fromstring('<c xmlns="' + importer.NS['s'] + '"><v>0</v></c>')
+        formulas = {320: 'H320+I288-SUM(I290:I300)-I313+I314', 321: 'H321+I299-SUM(I301:I306)', 322: '+H322+I313-SUM(I307:I312)'}
+        for row, formula in formulas.items():
+            cells[f'I{row}'] = ET.fromstring('<c xmlns="' + importer.NS['s'] + '"><f>' + formula + '</f></c>')
+        for sign in (1, -1):
+            report['balances'][320] = importer.Decimal(10 * sign)
+            report['balances'][321] = importer.Decimal(-10 * sign)
+            rows = importer.plan(report, self.config)
+            checks, errors = importer.check_ledgers(report, 'I', cells, rows)
+            self.assertFalse(errors)
+            self.assertEqual(rows[302][0], importer.Decimal(10 * sign))
+            self.assertEqual(rows[292][0], importer.Decimal('10.50') - 10 * sign)
+            self.assertEqual(report['corrections']['rows'], [292, 302])
+        report['balances'][322] = importer.Decimal('1')
+        rows = importer.plan(report, self.config)
+        checks, errors = importer.check_ledgers(report, 'I', cells, rows)
+        self.assertTrue(errors)
+        self.assertIsNone(report['corrections'])
+
+    def test_explanation_appends_existing_text(self):
+        import io, zipfile
+        data = io.BytesIO()
+        with zipfile.ZipFile(data, 'w') as z:
+            z.writestr('xl/sharedStrings.xml', '<sst xmlns="' + importer.NS['s'] + '"><si><t>Existing explanation &amp; details</t></si></sst>')
+        with zipfile.ZipFile(data) as z:
+            text = '<row><c r="L336" s="1" t="s"><v>0</v></c></row>'
+            result = importer.append_explanation(z, text, 'L336', 'New correction')
+            self.assertIn('Existing explanation &amp; details\nNew correction', result)
+
     def test_mapping_is_unique_and_codes_exist(self):
         seen = set()
         for rule in self.config['rules']:
