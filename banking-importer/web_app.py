@@ -104,7 +104,7 @@ def index():
                     review = reviews[0].read_bytes() if reviews else None
                     entries = list(csv.DictReader(io.StringIO(review.decode('utf-8-sig')))) if review else []
                     balances = [e for e in entries if 'LEDGER BALANCE' in e['Status']]
-                    notices = [e['Source'] for e in entries if e['Status'] in ('ROUNDING NOTICE', 'REVIEW REQUIRED')]
+                    notices = [e['Source'] for e in entries if e['Status'] in ('ROUNDING NOTICE', 'REVIEW REQUIRED', 'INFORMATION')]
                     changes = [e for e in entries if e['Status'] == 'CONFIRMED']
                     files = list((root / 'output').glob('*.xlsx'))
                     # Browser session stores only a random key; files remain local in memory.

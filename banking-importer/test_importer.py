@@ -141,6 +141,19 @@ class ImportTests(unittest.TestCase):
             self.assertEqual(props.attrib['fullCalcOnLoad'], '1')
             self.assertEqual(props.attrib['forceFullCalc'], '1')
 
+    def test_night_audit_only_leaves_statistics_out(self):
+        report = self.report([DAILY, LEDGERS])
+        self.assertFalse(report['has_manager'])
+        self.assertEqual(report['stats'], {})
+        rows = importer.plan(report, self.config)
+        self.assertNotIn(7, rows)
+        self.assertNotIn(9, rows)
+        self.assertEqual(rows[292][0], importer.Decimal('10.50'))
+
+    def test_unknown_page_is_not_treated_as_missing_manager(self):
+        with self.assertRaisesRegex(ValueError, 'Expected night audit pages'):
+            self.report([DAILY, LEDGERS, 'Station Hotel Aberdeen 12/10/26 Unknown report'])
+
     def test_mapping_is_unique_and_codes_exist(self):
         seen = set()
         for rule in self.config['rules']:

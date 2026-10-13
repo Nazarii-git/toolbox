@@ -45,17 +45,19 @@ def transactions(text):
 def parse_report(path):
     with pdfplumber.open(path) as pdf:
         pages = [p.extract_text() or '' for p in pdf.pages]
-    require(len(pages) >= 2, 'Expected a trial balance followed by a manager flash report.')
+    require(bool(pages), 'The PDF is empty.')
+    has_manager = 'Manager Flash Report' in pages[-1]
+    trial_pages = pages[:-1] if has_manager else pages
     require(all('Station Hotel Aberdeen' in p for p in pages), 'Report hotel does not match Station Hotel Aberdeen.')
-    require(all('Night Audit Trial Balance' in p for p in pages[:-1]) and 'Manager Flash Report' in pages[-1], 'Unexpected report layout.')
+    require(bool(trial_pages) and all('Night Audit Trial Balance' in p for p in trial_pages), 'Expected night audit pages, optionally followed by a manager flash report.')
     dates = [re.findall(r'\b\d{2}/\d{2}/\d{2}\b', p) for p in pages]
     require(all(d for d in dates), 'Missing report date.')
     require(len(set(d for page in dates for d in page)) == 1, 'Report pages have different dates.')
     date = datetime.strptime(dates[0][0], '%d/%m/%y').date()
-    trial = '\n'.join(pages[:-1])
+    trial = '\n'.join(trial_pages)
     require('\nGuest Ledger\n' in trial, 'Missing guest ledger section.')
     first, second = trial.split('\nGuest Ledger\n', 1)
-    manager = pages[-1]
+    manager = pages[-1] if has_manager else None
     daily = transactions(first)
     # Sections, not numeric ranges, define accounting classification: e.g.
     # levy 7102 and package profit 7400 are revenue despite their code numbers.
@@ -91,9 +93,11 @@ def parse_report(path):
         require(match is not None, f'Missing manager statistic {label}')
         return Decimal(match[1])
     # Manager rows have six columns. Verify today's revenue independently.
-    match = re.search(r'^Total Revenue\s+(' + MONEY + r')\s', manager, re.M)
-    require(match is not None and amount(match[1]) == revenue, 'Manager and trial balance revenue differ.')
-    return {'date': date, 'groups': groups, 'stats': {7: stat('Rooms Occupied'), 9: stat('Total In-House Persons')},
+    if has_manager:
+        match = re.search(r'^Total Revenue\s+(' + MONEY + r')\s', manager, re.M)
+        require(match is not None and amount(match[1]) == revenue, 'Manager and trial balance revenue differ.')
+    return {'date': date, 'groups': groups, 'stats': {7: stat('Rooms Occupied'), 9: stat('Total In-House Persons')} if has_manager else {},
+            'has_manager': has_manager,
             'transfer': field(deposit_text, 'Deposits Transfered at Check-In'),
             'opening': {320: field(first, 'Balance Brought Forward'), 321: field(ar_text, 'Balance Yesterday'), 322: field(deposit_text, 'Balance Yesterday')},
             'balances': {320: field(guest_text, 'Balance Today'), 321: field(ar_text, 'Balance Today'), 322: field(deposit_text, 'Balance Today')},
@@ -413,6 +417,8 @@ def run():
     with review.open('x', newline='', encoding='utf-8-sig') as f:
         writer = csv.writer(f)
         writer.writerow(['Status', 'Date', 'Sheet', 'Cell', 'Amount', 'Source'])
+        if not report['has_manager']:
+            writer.writerow(['INFORMATION', report['date'], sheet, f'{col}7 / {col}9', '', 'No Manager Flash Report: Rooms Occupied and Sleepers left unchanged; enter them manually.'])
         for row, (value, source) in sorted(rows.items()):
             writer.writerow(['CONFIRMED' if config.get('confirmed') else 'PROPOSED - confirm grouping', report['date'], sheet, f'{col}{row}', str(value), source])
         if report.get('corrections'):
