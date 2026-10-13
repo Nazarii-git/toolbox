@@ -244,6 +244,11 @@ def correction_styles(src, target, col, corrections):
     raw = src.read('xl/styles.xml').decode('utf-8')
     root = ET.fromstring(raw)
     fills, xfs = root.find('s:fills', NS), root.find('s:cellXfs', NS)
+    fonts = root.find('s:fonts', NS)
+    numfmts = root.find('s:numFmts', NS)
+    font_fragments, number_fragments = [], []
+    custom_formats = {int(n.attrib['numFmtId']): n.attrib['formatCode'] for n in numfmts} if numfmts is not None else {}
+    next_format = max([163] + list(custom_formats)) + 1
     fill_id = len(fills)
     fill = ET.fromstring('<fill xmlns="' + NS['s'] + '"><patternFill patternType="solid"><fgColor rgb="FFFF0000"/><bgColor indexed="64"/></patternFill></fill>')
     cells = {c.attrib['r']: c for c in ET.fromstring(src.read(target)).findall('.//s:c', NS)}
@@ -253,6 +258,23 @@ def correction_styles(src, target, col, corrections):
         require(cell is not None, f'Missing card correction cell {col}{row}')
         xf = deepcopy(xfs[int(cell.attrib.get('s', '0'))])
         xf.set('fillId', str(fill_id)); xf.set('applyFill', '1')
+        font = deepcopy(fonts[int(xf.attrib.get('fontId', '0'))])
+        for color in list(font.findall('s:color', NS)):
+            font.remove(color)
+        font.append(ET.Element('{' + NS['s'] + '}color', {'rgb': 'FF000000'}))
+        xf.set('fontId', str(len(fonts) + len(font_fragments)))
+        xf.set('applyFont', '1')
+        font_fragments.append(ET.tostring(font, encoding='unicode'))
+        # Number formats such as [Red] for negatives override the font colour.
+        from openpyxl.styles.numbers import BUILTIN_FORMATS
+        fmt_id = int(xf.attrib.get('numFmtId', '0'))
+        format_code = custom_formats.get(fmt_id, BUILTIN_FORMATS.get(fmt_id, ''))
+        clean_code = re.sub(r'\[(?:Black|Blue|Cyan|Green|Magenta|Red|White|Yellow|Color\s*\d+)\]', '', format_code, flags=re.I)
+        if clean_code != format_code:
+            num = ET.Element('{' + NS['s'] + '}numFmt', {'numFmtId': str(next_format), 'formatCode': clean_code})
+            number_fragments.append(ET.tostring(num, encoding='unicode'))
+            xf.set('numFmtId', str(next_format)); xf.set('applyNumberFormat', '1')
+            next_format += 1
         styles[row] = len(xfs) + len(fragments)
         fragments.append(ET.tostring(xf, encoding='unicode'))
     def extend(raw, name, fragment, count):
@@ -262,6 +284,14 @@ def correction_styles(src, target, col, corrections):
         block = re.sub(r'count="\d+"', f'count="{count}"', match[0], count=1)
         block = block.replace('</' + name + '>', fragment + '</' + name + '>')
         return raw[:match.start()] + block + raw[match.end():]
+    raw = extend(raw, 'fonts', ''.join(font_fragments), len(fonts) + len(font_fragments))
+    if number_fragments:
+        if numfmts is not None:
+            raw = extend(raw, 'numFmts', ''.join(number_fragments), len(numfmts) + len(number_fragments))
+        else:
+            position = raw.find('<fonts')
+            require(position >= 0, 'Unsupported styles: missing fonts.')
+            raw = raw[:position] + f'<numFmts count="{len(number_fragments)}">' + ''.join(number_fragments) + '</numFmts>' + raw[position:]
     raw = extend(raw, 'fills', ET.tostring(fill, encoding='unicode'), fill_id + 1)
     raw = extend(raw, 'cellXfs', ''.join(fragments), len(xfs) + len(fragments))
     return raw.encode('utf-8'), styles
