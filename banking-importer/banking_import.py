@@ -200,6 +200,17 @@ def check_ledgers(report, col, cells, rows):
     guest_difference = calculated[320] - report['balances'][320]
     ar_difference = calculated[321] - report['balances'][321]
     report['corrections'] = None
+    # Isolate display rounding from the Guest/AR transfer before matching it.
+    rounding_remainder = guest_difference + ar_difference
+    if (not errors and guest_difference * ar_difference < 0
+            and abs(rounding_remainder) <= Decimal('0.02')
+            and calculated[322] == report['balances'][322]):
+        if rounding_remainder:
+            value, source = rows.get(300, (Decimal(0), 'Differences'))
+            rows[300] = (value + rounding_remainder,
+                         source + f'; rounding remainder {rounding_remainder:+.2f}')
+            calculated[320] -= rounding_remainder
+            guest_difference -= rounding_remainder
     if not errors and guest_difference and guest_difference == -ar_difference and calculated[322] == report['balances'][322]:
         for row, correction in ((292, guest_difference), (302, ar_difference)):
             value, source = rows.get(row, (Decimal(0), 'No reported card payments'))
@@ -208,7 +219,8 @@ def check_ledgers(report, col, cells, rows):
         calculated[321] -= ar_difference
         note = (f'{report["date"].strftime("%d.%m.%Y")} Guest/AR report discrepancy: '
                 f'Guest Cards {guest_difference:+.2f}, AR Cards {ar_difference:+.2f}. '
-                'Equal-and-opposite correction; red cells require review.')
+                'Equal-and-opposite correction; red cells require review.'
+                + (f' Differences rounding {rounding_remainder:+.2f}.' if rounding_remainder else ''))
         report['corrections'] = {'rows': [292, 302], 'note': note}
     difference = calculated[320] - report['balances'][320]
     # A positive Differences entry reduces the guest ledger closing balance.

@@ -96,6 +96,25 @@ class ImportTests(unittest.TestCase):
             self.assertEqual(rows[302][0], importer.Decimal(10 * sign))
             self.assertEqual(rows[292][0], importer.Decimal('10.50') - 10 * sign)
             self.assertEqual(report['corrections']['rows'], [292, 302])
+        for transfer, remainder in [(importer.Decimal('334.00'), importer.Decimal('0.02')),
+                                     (importer.Decimal('-334.00'), importer.Decimal('-0.02'))]:
+            # Zero calculated balances produce the same discrepancies as the error.
+            report['balances'][320] = transfer - remainder
+            report['balances'][321] = -transfer
+            report['split_exceptions'] = ['Ledger Payment adjustment']
+            rows = importer.plan(report, self.config)
+            checks, errors = importer.check_ledgers(report, 'I', cells, rows)
+            self.assertFalse(errors)
+            self.assertEqual(rows[292][0], importer.Decimal('10.50') - transfer)
+            self.assertEqual(rows[302][0], transfer)
+            self.assertEqual(rows[300][0], remainder)
+            self.assertTrue(all(status == 'PASS' for _, status, _, _ in checks))
+        report['balances'][320] = importer.Decimal('333.97')
+        report['balances'][321] = importer.Decimal('-334')
+        rows = importer.plan(report, self.config)
+        checks, errors = importer.check_ledgers(report, 'I', cells, rows)
+        self.assertTrue(errors)  # 3p is outside the authorised rounding tolerance.
+        self.assertIsNone(report['corrections'])
         report['balances'][322] = importer.Decimal('1')
         rows = importer.plan(report, self.config)
         checks, errors = importer.check_ledgers(report, 'I', cells, rows)
