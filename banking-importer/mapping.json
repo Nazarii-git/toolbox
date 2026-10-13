@@ -1,6 +1,6 @@
 {
   "confirmed": true,
-  "notes": "Existing grouping confirmed by user; additional direct bar/restaurant, VAT, named payment-method, no-show/cancellation/long-stay, visitor levy, gratuity and donation mappings derived from posting catalogue and workbook row labels. Other codes require review. Payment ledger is determined from the report section, not the code prefix.",
+  "notes": "Existing grouping confirmed by user; additional direct bar/restaurant, VAT, named payment-method, no-show/cancellation/long-stay, visitor levy, gratuity and donation mappings derived from posting catalogue and workbook row labels. Other codes require review. Payment ledger is determined from the report section, not the code prefix. User confirmed regular outlet activity uses rows 13\u201354 and all functions/conferences use C&B. Room service and Nor1 meals use Restaurant meal rows; untimed wine uses Restaurant Beverage-General. Untimed event food/beverage uses C&B General, event tea/coffee uses Beverage-General; event corkage, entertainment and external supplies use C&B Misc Income. These category defaults are documented for review.",
   "rules": [
     {
       "group": "ar",
@@ -92,7 +92,16 @@
       "row": 13,
       "codes": [
         "1000",
-        "1015"
+        "1003",
+        "1005",
+        "1006",
+        "1007",
+        "1015",
+        "1016",
+        "1017",
+        "1018",
+        "1019",
+        "1020"
       ],
       "sign": 1
     },
@@ -202,7 +211,11 @@
       "group": "daily",
       "row": 30,
       "codes": [
-        "2000"
+        "2000",
+        "2005",
+        "2020",
+        "2025",
+        "2026"
       ],
       "sign": 1
     },
@@ -210,7 +223,9 @@
       "group": "daily",
       "row": 31,
       "codes": [
-        "2001"
+        "2001",
+        "2006",
+        "2021"
       ],
       "sign": 1
     },
@@ -219,7 +234,13 @@
       "row": 32,
       "codes": [
         "2003",
-        "2004"
+        "2004",
+        "2007",
+        "2008",
+        "2023",
+        "2024",
+        "2050",
+        "2051"
       ],
       "sign": 1
     },
@@ -227,7 +248,21 @@
       "group": "daily",
       "row": 33,
       "codes": [
-        "2002"
+        "2002",
+        "2015",
+        "2016",
+        "2022"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 34,
+      "codes": [
+        "3053",
+        "3054",
+        "3059",
+        "3063"
       ],
       "sign": 1
     },
@@ -236,7 +271,9 @@
       "row": 35,
       "codes": [
         "3000",
-        "3005"
+        "3005",
+        "3020",
+        "3025"
       ],
       "sign": 1
     },
@@ -245,7 +282,9 @@
       "row": 36,
       "codes": [
         "3001",
-        "3006"
+        "3006",
+        "3021",
+        "3026"
       ],
       "sign": 1
     },
@@ -256,7 +295,11 @@
         "3003",
         "3004",
         "3008",
-        "3009"
+        "3009",
+        "3023",
+        "3024",
+        "3028",
+        "3029"
       ],
       "sign": 1
     },
@@ -264,7 +307,8 @@
       "group": "daily",
       "row": 38,
       "codes": [
-        "3002"
+        "3002",
+        "3022"
       ],
       "sign": 1
     },
@@ -272,7 +316,153 @@
       "group": "daily",
       "row": 39,
       "codes": [
-        "4300"
+        "4300",
+        "4302"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 40,
+      "codes": [
+        "4900",
+        "4901",
+        "4902"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 43,
+      "codes": [
+        "2610",
+        "2630",
+        "2700"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 44,
+      "codes": [
+        "2030",
+        "2495",
+        "2800"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 45,
+      "codes": [
+        "2031",
+        "2500",
+        "2805"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 46,
+      "codes": [
+        "2033",
+        "2034",
+        "2505",
+        "2810"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 47,
+      "codes": [
+        "2032"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 48,
+      "codes": [
+        "2640",
+        "3700",
+        "3750",
+        "4931"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 49,
+      "codes": [
+        "3030",
+        "3035",
+        "3159",
+        "3800",
+        "3850"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 50,
+      "codes": [
+        "3031",
+        "3036",
+        "3157",
+        "3805",
+        "3855"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 51,
+      "codes": [
+        "3033",
+        "3034",
+        "3038",
+        "3039",
+        "3158",
+        "3160",
+        "3810",
+        "3860"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 52,
+      "codes": [
+        "3032"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 53,
+      "codes": [
+        "4305",
+        "4306",
+        "4307",
+        "4551",
+        "4552",
+        "4911",
+        "4912",
+        "4951",
+        "4952",
+        "4961",
+        "4962"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 54,
+      "codes": [
+        "4910",
+        "4950",
+        "4960"
       ],
       "sign": 1
     },

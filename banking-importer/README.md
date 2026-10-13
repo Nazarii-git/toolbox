@@ -24,7 +24,7 @@ For an existing installation, rerun the installation command to add the web depe
 5. Open the copy in desktop Excel. Use Formulas > Calculate Now (F9), or Ctrl+Alt+F9 for a full recalculation. Compare guest, AR and deposit ledger closing balances with the review CSV. Use this updated copy as the input on the next day.
 
 ## What it imports
-The report date selects the week and daily column. Revenue, service charge, VAT, occupied rooms, sleepers, guest payments, deposit payments and deposits transferred are imported. Guest and deposit payments are kept separate. Mapping rules are in `mapping.json`, based on the supplied report and the grouping confirmed in chat. The supplied posting catalogue contains 243 codes; 100 have direct mappings. `posting-code-coverage.csv` lists every code, its mapping or its need for review. Room-service/event department assignments, package profit/loss, internal transfers, cheques and other ambiguous items remain blocked until their banking treatment is confirmed. Unmapped codes stop the import with their code and name.
+The report date selects the week and daily column. Revenue, service charge, VAT, occupied rooms, sleepers, guest payments, deposit payments and deposits transferred are imported. Guest and deposit payments are kept separate. Mapping rules are in `mapping.json`, based on the supplied report and the grouping confirmed in chat. The supplied posting catalogue contains 243 codes; 192 have mappings. `posting-code-coverage.csv` lists every code, its mapping or its need for review. Package profit/loss, generic conference packages (4930), internal transfers, cheques and other ambiguous items remain blocked until their banking treatment is confirmed. Unmapped codes stop the import with their code and name.
 
 Accommodation includes Nor1 upgrades. Restaurant dinner beverage includes soft drinks; bar dinner beverage includes night beverage. Pay By Link and Web Payment are grouped together within the ledger where they appear. Luggage storage maps to Other Misc Income; parking maps to Car Parking. Payment signs are reversed to match the banking sheet. Review these mappings before regular use.
 
@@ -44,3 +44,8 @@ python banking_import.py report.pdf banking.xlsx --output-dir review
 python banking_import.py report.pdf banking.xlsx --output-dir imported --apply
 ```
 Choose separate output directories for separate runs. Without `--apply`, only a CSV preview is produced. No workbook is changed. Windows file-picker interactions require local desktop Python and have not been tested on Windows in this Linux environment.
+
+## Department grouping
+Regular room-service food/drinks and Nor1 meal extras use Restaurant rows by meal (30–38); untimed Nor1 wine uses Restaurant Beverage-General (34). Night postings join Dinner. Accommodation extras and their adjustments join Accommodation (13), preserving the report sign.
+
+Ballroom, banquet, conference and wedding postings all use C&B rows 40–54: room hire 40; food 43–47; beverage 48–52; miscellaneous 53; equipment/AV hire 54. Untimed food/drinks and tea/coffee use General rows. Corkage, entertainment and external supplies use C&B Misc Income. These defaults preserve totals while making the category choices explicit; adjust the mapping if your hotel's accounting treatment differs.
