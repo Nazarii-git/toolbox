@@ -27,7 +27,7 @@ def reconciles(actual, expected, label):
     difference = actual - expected
     require(abs(difference) <= Decimal('0.02'), f'{label}: difference {difference} exceeds two-pence display-rounding tolerance')
     if difference:
-        ROUNDING_NOTES.append(f'{label}: displayed lines differ from report total by {difference}; amounts preserved, no balancing entry added.')
+        ROUNDING_NOTES.append(f'{label}: displayed lines differ from report total by {difference}; source amounts preserved; see Differences entry and ledger checks for any rounding correction.')
     return True
 
 def field(text, label):

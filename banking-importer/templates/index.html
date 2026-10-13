@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daily banking importer</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#f4f6f8;color:#183046;margin:0}main{max-width:880px;margin:40px auto;padding:28px;background:white;border-radius:16px}h1{margin-bottom:8px}p{line-height:1.6}.muted{color:#52677a}label{display:block;margin:20px 0 8px;font-weight:600}input{display:block;max-width:100%;margin-top:8px}button,.button{display:inline-block;background:#12654e;color:white;border:0;border-radius:7px;padding:12px 18px;font:inherit;text-decoration:none;cursor:pointer;margin:20px 10px 0 0}.error{background:#fff1ee;padding:16px;border-left:4px solid #b73d26;overflow-wrap:anywhere}.notice{background:#fff8dc;padding:12px}.success{color:#12654e}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px;border-bottom:1px solid #dae1e7}details{margin:24px 0}.scroll{overflow:auto}footer{margin-top:32px;font-size:14px}
+</style></head><body><main>
+<p class="muted">STATION HOTEL ABERDEEN</p><h1>Daily banking importer</h1>
+<p>Choose your night audit report and monthly banking workbook. We’ll find the date column, group the figures and check the three ledger balances.</p>
+<form method="post" enctype="multipart/form-data"><input type="hidden" name="csrf" value="{{csrf}}">
+<label>Daily report · PDF<input type="file" name="report" accept=".pdf" required></label>
+<label>Monthly banking sheet · Excel<input type="file" name="workbook" accept=".xlsx" required></label>
+<button type="submit">Check and prepare workbook</button></form>
+{% if error %}<h2>Import needs attention</h2><p class="error">{{error}}</p>{% endif %}
+{% if result %}
+{% if result.success %}<h2 class="success">All three ledger balances match</h2>{% endif %}
+{% if result.date %}<p>{{result.date}} · {{result.sheet}}</p>{% endif %}
+{% if result.balances %}<div class="scroll"><table><thead><tr><th>Ledger</th><th>Calculated balance</th><th>Check</th></tr></thead><tbody>
+{% for row in result.balances %}<tr><td>{{ {'320':'Guest','321':'A/R','322':'Deposit'}.get(row.Cell[1:],row.Cell) }}</td><td>£{{row.Amount}}</td><td>{{row.Status}}</td></tr>{% endfor %}</tbody></table></div>{% endif %}
+{% for note in result.notices %}<p class="notice">{{note}}</p>{% endfor %}
+{% if result.success %}<a class="button" href="/download/workbook">Download updated Excel</a>{% endif %}
+{% if result.review %}<a class="button" href="/download/review">Download review CSV</a>{% endif %}
+{% if result.changes %}<details><summary>Review {{result.changes|length}} proposed entries</summary><div class="scroll"><table><thead><tr><th>Cell</th><th>Amount</th><th>Report details</th></tr></thead><tbody>{% for row in result.changes %}<tr><td>{{row.Cell}}</td><td>{{row.Amount}}</td><td>{{row.Source}}</td></tr>{% endfor %}</tbody></table></div></details>{% endif %}
+{% if result.success %}<p>Open the downloaded copy in Excel and recalculate the workbook. Cash banked and PDQ totals still need separate input. Use this copy for the next daily import.</p>{% endif %}
+{% endif %}
+<footer class="muted">Runs locally on your computer. Your original files are preserved. Downloads remain available until you submit another import or close the program.</footer>
+</main></body></html>

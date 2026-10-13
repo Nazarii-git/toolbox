@@ -1,6 +1,22 @@
 # Daily banking importer — Station Hotel Aberdeen
 
-## Windows
+## Browser interface — Windows and Mac
+The browser interface runs locally and has PDF/Excel file pickers, the three ledger checks, an entry review and Excel/CSV download buttons. No hosted account is needed.
+
+**Windows:** Install Python 3.12 from python.org, extract the repository ZIP, open `banking-importer`, run **Install Windows.bat** once, then **Run Web Windows.bat** each day.
+
+**Mac:** Install Python 3.12 from python.org. In Terminal, enter `cd ` (with a trailing space), drag the extracted `banking-importer` folder into the window and press Return. Then run:
+```sh
+bash "Install Mac.command"
+bash "Run Web Mac.command"
+```
+After installation you only need the second command each day. These Terminal commands also work if a downloaded ZIP loses executable permissions or macOS prevents opening `.command` files directly.
+
+The launcher opens your browser automatically. If it does not, enter `http://127.0.0.1:8765` in your own browser. Keep the Terminal window open while using the app; press Ctrl+C to stop it. Download the workbook before stopping. Files are processed locally; temporary uploaded copies are removed after each import, and download data is discarded when the app stops. Use the updated workbook as the next day's input. Recalculate and save it in Excel first so its opening balance caches are current.
+
+For an existing installation, rerun the installation command to add the web dependencies. The app is intended for local use on your own computer, and listens only on its loopback address.
+
+## Windows file-picker alternative
 1. Install Python 3 (3.12 recommended) from https://www.python.org/downloads/windows/, including the Python launcher and Tcl/Tk.
 2. Extract this ZIP into a folder. Double-click **Install Windows.bat** once. This downloads the PDF-reading dependencies.
 3. Each day, close the workbook in Excel, double-click **Run Windows.bat**, select the daily PDF, then the monthly workbook.
