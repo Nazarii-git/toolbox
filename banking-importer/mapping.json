@@ -1,0 +1,259 @@
+{
+  "confirmed": true,
+  "notes": "Grouping confirmed by user for supplied Station Hotel report. Unknown codes stop import. Codes missing from a report leave destination rows blank.",
+  "rules": [
+    {
+      "group": "daily",
+      "row": 13,
+      "codes": [
+        "1000",
+        "1015"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 30,
+      "codes": [
+        "2000"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 31,
+      "codes": [
+        "2001"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 32,
+      "codes": [
+        "2003"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 21,
+      "codes": [
+        "2013"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 36,
+      "codes": [
+        "3001"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 37,
+      "codes": [
+        "3003",
+        "3008"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 25,
+      "codes": [
+        "3011"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 26,
+      "codes": [
+        "3013",
+        "3014"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 275,
+      "codes": [
+        "4501"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 278,
+      "codes": [
+        "4750"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 282,
+      "codes": [
+        "5000"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 286,
+      "codes": [
+        "7000"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "guest",
+      "row": 290,
+      "codes": [
+        "9000",
+        "9020"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 292,
+      "codes": [
+        "9004",
+        "9005",
+        "9025",
+        "9026"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 293,
+      "codes": [
+        "9003",
+        "9024"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 294,
+      "codes": [
+        "9015",
+        "9664"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 296,
+      "codes": [
+        "9050"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 299,
+      "codes": [
+        "9002"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 301,
+      "codes": [
+        "9000",
+        "9020"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 302,
+      "codes": [
+        "9004",
+        "9005",
+        "9025",
+        "9026"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 303,
+      "codes": [
+        "9003",
+        "9024"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 304,
+      "codes": [
+        "9015",
+        "9664"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 305,
+      "codes": [
+        "9050"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "deposit",
+      "row": 307,
+      "codes": [
+        "9000",
+        "9020"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "deposit",
+      "row": 308,
+      "codes": [
+        "9004",
+        "9005",
+        "9025",
+        "9026"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "deposit",
+      "row": 309,
+      "codes": [
+        "9003",
+        "9024"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "deposit",
+      "row": 310,
+      "codes": [
+        "9015",
+        "9664"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "deposit",
+      "row": 311,
+      "codes": [
+        "9050"
+      ],
+      "sign": -1
+    }
+  ]
+}
