@@ -45,15 +45,25 @@ def transactions(text):
 def parse_report(path):
     with pdfplumber.open(path) as pdf:
         pages = [p.extract_text() or '' for p in pdf.pages]
-    require(len(pages) == 4, 'Expected the three-page trial balance and one-page manager report; review changed format.')
+    require(len(pages) >= 2, 'Expected a trial balance followed by a manager flash report.')
     require(all('Station Hotel Aberdeen' in p for p in pages), 'Report hotel does not match Station Hotel Aberdeen.')
-    require(all('Night Audit Trial Balance' in p for p in pages[:3]) and 'Manager Flash Report' in pages[3], 'Unexpected report layout.')
+    require(all('Night Audit Trial Balance' in p for p in pages[:-1]) and 'Manager Flash Report' in pages[-1], 'Unexpected report layout.')
     dates = [re.findall(r'\b\d{2}/\d{2}/\d{2}\b', p) for p in pages]
     require(all(d for d in dates), 'Missing report date.')
     require(len(set(d for page in dates for d in page)) == 1, 'Report pages have different dates.')
     date = datetime.strptime(dates[0][0], '%d/%m/%y').date()
-    first, second, _, manager = pages
+    trial = '\n'.join(pages[:-1])
+    require('\nGuest Ledger\n' in trial, 'Missing guest ledger section.')
+    first, second = trial.split('\nGuest Ledger\n', 1)
+    manager = pages[-1]
     daily = transactions(first)
+    # Sections, not numeric ranges, define accounting classification: e.g.
+    # levy 7102 and package profit 7400 are revenue despite their code numbers.
+    revenue_text = first.split('\nRevenue\n', 1)[1].split('\nRevenue Total ', 1)[0]
+    nonrevenue_text = first.split('\nNon Revenue\n', 1)[1].split('\nNon Revenue Total ', 1)[0]
+    payment_text = first.split('\nPayment\n', 1)[1].split('\nPayment Total ', 1)[0]
+    revenue_codes, nonrevenue_codes, payment_codes = map(transactions, (revenue_text, nonrevenue_text, payment_text))
+    require(set(daily) == set(revenue_codes) | set(nonrevenue_codes) | set(payment_codes), 'Transaction outside recognised daily report sections.')
     require('AR Ledger' in second and 'Deposit Ledger' in second and 'Package Ledger' in second, 'Missing ledger sections.')
     guest_text, remainder = second.split('\nAR Ledger\n', 1)
     ar_text, remainder = remainder.split('\nDeposit Ledger\n', 1)
@@ -62,11 +72,11 @@ def parse_report(path):
     revenue = field(first, 'Revenue Total')
     nonrevenue = field(first, 'Non Revenue Total')
     payments = field(first, 'Payment Total')
-    reconciles(sum((v for c, (_, v) in daily.items() if int(c) < 5000), Decimal(0)), revenue, 'Revenue lines')
-    require(sum((v for c, (_, v) in daily.items() if 5000 <= int(c) < 9000), Decimal(0)) == nonrevenue, 'Non-revenue lines do not reconcile.')
-    require(sum((v for c, (_, v) in daily.items() if int(c) >= 9000), Decimal(0)) == payments, 'Payment lines do not reconcile.')
+    reconciles(sum((v for c, (_, v) in daily.items() if c in revenue_codes), Decimal(0)), revenue, 'Revenue lines')
+    require(sum((v for c, (_, v) in daily.items() if c in nonrevenue_codes), Decimal(0)) == nonrevenue, 'Non-revenue lines do not reconcile.')
+    require(sum((v for c, (_, v) in daily.items() if c in payment_codes), Decimal(0)) == payments, 'Payment lines do not reconcile.')
     for code, (_, value) in daily.items():
-        if int(code) >= 9000:
+        if code in payment_codes:
             split = sum((g.get(code, ('', Decimal(0)))[1] for g in (groups['guest'], groups['ar'], groups['deposit'])), Decimal(0))
             require(value == split, f'Guest/AR/deposit breakdown does not reconcile for {code}.')
     require(field(ar_text, 'Payments') == 0 or bool(groups['ar']), 'Nonzero AR payments lack transaction detail; manual review required.')
@@ -83,7 +93,7 @@ def parse_report(path):
             'transfer': field(deposit_text, 'Deposits Transfered at Check-In'),
             'opening': {320: field(first, 'Balance Brought Forward'), 321: field(ar_text, 'Balance Yesterday'), 322: field(deposit_text, 'Balance Yesterday')},
             'balances': {320: field(guest_text, 'Balance Today'), 321: field(ar_text, 'Balance Today'), 322: field(deposit_text, 'Balance Today')},
-            'revenue': revenue, 'nonrevenue': nonrevenue, 'payments': payments}
+            'revenue': revenue, 'nonrevenue': nonrevenue, 'payments': payments, 'payment_codes': set(payment_codes)}
 
 def workbook_target(path, date):
     with zipfile.ZipFile(path) as z:
@@ -144,8 +154,9 @@ def plan(report, config):
         rows[row] = (value, ' + '.join(f'{c} {l} ({v})' for c, l, v in values))
     for group, entries in report['groups'].items():
         for code in entries:
-            if group == 'daily' and int(code) >= 9000: continue
-            require((group, code) in seen, f'Unmapped transaction {group}/{code}; update mapping before importing.')
+            if group == 'daily' and code in report['payment_codes']: continue
+            name = config.get('catalogue', {}).get(code, {}).get('name', entries[code][0])
+            require((group, code) in seen, f'Unmapped transaction {group}/{code} ({name}); confirm its banking destination before importing.')
     rows[313] = (report['transfer'], 'Deposit ledger: Deposits Transfered at Check-In')
     reconciles(sum((v for r, (v, _) in rows.items() if 13 <= r <= 278), Decimal(0)), report['revenue'], 'Mapped revenue')
     require(sum((v for r, (v, _) in rows.items() if 282 <= r <= 286), Decimal(0)) == report['nonrevenue'], 'Mapped non-revenue does not reconcile.')

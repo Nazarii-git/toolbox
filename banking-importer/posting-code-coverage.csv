@@ -1,0 +1,244 @@
+Code,Name,Source group,Status,Mapped destinations,Notes
+1000,Accommodation,REV,Mapped,daily row 13,
+1001,No Show Charge,REV,Mapped,daily row 15,
+1002,Cancellation Fee,REV,Mapped,daily row 16,
+1003,Early Departure Fee,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1004,Accommodation Long Stay,REV,Mapped,daily row 14,
+1005,Early Check In Fee,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1006,Late Check Out Fee,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1007,Complaint,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1015,Nor1 Bedroom Upgrade,REV,Mapped,daily row 13,
+1016,ADJ Nor1 Bedroom Upgrade,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1017,Nor1 Late Checkout,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1018,Adj Nor1 Late Checkout,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1019,Nor1 Early Checkin,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1020,Adj Nor1 Early Checkin,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1066,Pet Charge,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1400,Accommodation Package,PKG,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1500,Bed & Breakfast Rate,PKG,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1501,"Dinner, Bed & Breakfast Rate",PKG,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1502,24 Hour Delegate Rate,PKG,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+1503,Day Delegate Rate,PKG,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2000,Restaurant Breakfast Food,REV,Mapped,daily row 30,
+2001,Restaurant Lunch Food,REV,Mapped,daily row 31,
+2002,Restaurant Afternoon Tea,REV,Mapped,daily row 33,
+2003,Restaurant Dinner Food,REV,Mapped,daily row 32,
+2004,Restaurant Night Food,REV,Mapped,daily row 32,
+2005,Breakfast Supplement,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2006,Lunch Supplement,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2007,Dinner Supplement,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2008,Night Supplement,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2010,Bar Breakfast Food,REV,Mapped,daily row 19,
+2011,Bar Lunch Food,REV,Mapped,daily row 20,
+2012,Bar Afternoon Tea,REV,Mapped,daily row 22,
+2013,Bar Dinner Food,REV,Mapped,daily row 21,
+2014,Bar Night Food,REV,Mapped,daily row 21,
+2015,Nor1 Afternoon Tea,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2016,ADJ Nor1 Afternoon Tea,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2020,Room Service Breakfast Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2021,Room Service Lunch Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2022,Room Service Afternoon Tea,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2023,Room Service Dinner Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2024,Room Service Night Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2025,Nor1 Breakfast Upgrade,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2026,Adj Nor1 Breakfast Upsell,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2030,Ballroom Breakfast Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2031,Ballroom Lunch Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2032,Ballroom Afternoon Tea,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2033,Ballroom Dinner Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2034,Ballroom Night Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2050,Nor1 Dinner Upsell,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2051,ADJ Nor1 Dinner Upsell,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2495,Banquet Breakfast Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2500,Banquet Lunch Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2505,Banquet Dinner Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2610,Banquet Other Buffet,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2630,Banquet Other Seated,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2640,Banquet Teas & Coffees,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2700,Wedding Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2800,Conference Breakfast Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2805,Conference Lunch Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+2810,Conference Dinner Food,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3000,Restaurant Breakfast Beverage,REV,Mapped,daily row 35,
+3001,Restaurant Lunch Beverage,REV,Mapped,daily row 36,
+3002,Restaurant Afternoon Tea Beverage,REV,Mapped,daily row 38,
+3003,Restaurant Dinner Beverage,REV,Mapped,daily row 37,
+3004,Restaurant Night Beverage,REV,Mapped,daily row 37,
+3005,Restaurant Breakfast Soft Beverage,REV,Mapped,daily row 35,
+3006,Restaurant Lunch Soft Beverage,REV,Mapped,daily row 36,
+3008,Restaurant Dinner Soft Beverage,REV,Mapped,daily row 37,
+3009,Restaurant Night Soft Beverage,REV,Mapped,daily row 37,
+3010,Bar Breakfast Beverage,REV,Mapped,daily row 24,
+3011,Bar Lunch Beverage,REV,Mapped,daily row 25,
+3012,Bar Afternoon Tea Beverage,REV,Mapped,daily row 27,
+3013,Bar Dinner Beverage,REV,Mapped,daily row 26,
+3014,Bar Night Beverage,REV,Mapped,daily row 26,
+3015,Bar Breakfast Soft Beverage,REV,Mapped,daily row 24,
+3016,Bar Lunch Soft Beverage,REV,Mapped,daily row 25,
+3018,Bar Dinner Soft Beverage,REV,Mapped,daily row 26,
+3019,Bar Night Soft Beverage,REV,Mapped,daily row 26,
+3020,Room Service Breakfast Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3021,Room Service Lunch Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3022,Room Service Afternoon Tea Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3023,Room Service Dinner Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3024,Room Service Night Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3025,Room Service Breakfast Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3026,Room Service Lunch Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3028,Room Service Dinner Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3029,Room Service Night Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3030,Ballroom Breakfast Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3031,Ballroom Lunch Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3032,Ballroom Afternoon Tea Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3033,Ballroom Dinner Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3034,Ballroom Night Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3035,Ballroom Breakfast Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3036,Ballroom Lunch Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3038,Ballroom Dinner Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3039,Ballroom Night Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3053,Nor1 Bottle of White Wine,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3054,Nor1 ADJ Bottle of White Wine,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3059,Nor1 Bottle of Red Wine,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3063,Nor1 ADJ Bottle of Red Wine,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3101,Soft Drink 5% VAT,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3157,Banquet Lunch Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3158,Banquet Dinner Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3159,Banquet Breakfast Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3160,Banquet Late Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3500,Minibar,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3700,Wedding Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3750,Wedding Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3800,Conference Breakfast Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3805,Conference Lunch Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3810,Conference Dinner Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3850,Conference Breakfast Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3855,Conference Lunch Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+3860,Conference Dinner Soft Beverage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4000,Telephone,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4050,Fax,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4051,Nor1 Pet Package,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4300,Restaurant Miscellaneous,REV,Mapped,daily row 39,
+4301,Bar Miscellaneous,REV,Mapped,daily row 28,
+4302,Room Service Miscellaneous,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4305,Conference Miscellaneous,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4306,Wedding Miscallaeneous,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4307,Banquet Miscallaeneous,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4440,Sundries Vatable,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4450,Visitor Paid Out,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4460,VPO Postage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4470,VPO Tickets,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4480,VPO Taxi Fare,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4490,VPO City Tour,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4500,Porterage Service,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4501,Luggage Storage Fee,REV,Mapped,daily row 275,
+4510,Newspaper,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4550,Corkage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4551,Wedding Corkage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4552,Banquet Corkage,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4600,Laundry/Dry Cleaning,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4700,Theatre Tickets,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4720,Wellness - Sleep Retreat,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4726,Wellness - Robe & Slippers,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4728,Nor 1 Wellness - Sleep Retreat,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4733,Nor 1 Wellness - Face Mask,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4734,Nor1 Wellness - Robe & Slippers,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4750,Car Parking,REV,Mapped,daily row 278,
+4800,Pay Movies,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4810,Communication Service,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4820,Games,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4850,Health Club,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4900,Conference Room Hire,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4901,Wedding Room Hire,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4902,Banquet Room Hire,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4910,Equipment Hire,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4911,Conference Entertainment,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4912,Conference External Supplies,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4920,Photocopying,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4930,Conference,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4931,Conference Tea and Coffee,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4950,Wedding Equipment Hire,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4951,Wedding Entertainment,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4952,Wedding External Supplies,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4960,Banquet Equipment Hire,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4961,Banquet Entertainment,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+4962,Banquet External Supllies,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+5000,Service Charge,REV,Mapped,daily row 282,
+5001,Tray Charge,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+5010,Gratuities,REV,Mapped,daily row 283,
+7000,VAT@20%,NON_REV,Mapped,daily row 286,
+7001,VAT@5%,NON_REV,Mapped,daily row 286,
+7005,VAT@4%,NON_REV,Mapped,daily row 286,
+7009,VAT @1%,NON_REV,Mapped,daily row 286,
+7010,VAT@0%,NON_REV,Mapped,daily row 286,
+7011,VAT@12.5%,NON_REV,Mapped,daily row 286,
+7012,VAT@2.5%,NON_REV,Mapped,daily row 286,
+7015,VAT Exempt,NON_REV,Mapped,daily row 286,
+7102,Aberdeen Levy Fee - 20% VAT,REV,Mapped,daily row 277,
+7400,Package Profit,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+7405,Package Loss,REV,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+8000,Donation - Trees For Life,NON_REV,Mapped,daily row 285,
+9000,Cash Payment,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
+9001,Cheque Payment,PAY,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+9002,Ledger Payment,PAY,Mapped,guest row 299,
+9003,American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
+9004,Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9005,Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9006,Maestro,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9007,JCB,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9008,Diners Card,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9010,BACS Payment,PAY,Mapped,ar row 305; deposit row 311; guest row 296,
+9011,Voucher Redemption,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9015,Pay By Link,PAY,Mapped,ar row 304; deposit row 310; guest row 294,
+9020,POS Cash,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
+9021,POS Cheque,PAY,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+9024,POS American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
+9025,POS Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9026,POS Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9027,POS Maestro,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9028,POS JCB,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9029,POS Diners,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9030,POS China Union Pay,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9032,POS Voucher Redemption,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9033,POS Groupon,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9034,POS ITISON,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9035,POS Wowcher,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9040,DEPOSIT Cash,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
+9041,DEPOSIT Cheque,PAY,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+9043,DEPOSIT American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
+9044,DEPOSIT Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9045,DEPOSIT Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9046,DEPOSIT Maestro,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9047,DEPOSIT JCB,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9048,DEPOSIT Diners Club,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9050,DEPOSIT BACS,PAY,Mapped,ar row 305; deposit row 311; guest row 296,
+9051,DEPOSIT Voucher Redemption,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9060,AR Cash,PAY,Mapped,ar row 301; deposit row 307; guest row 290,
+9061,AR Cheque,PAY,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+9063,AR American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
+9064,AR Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9065,AR Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9066,AR Maestro,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9067,AR JCB,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9068,AR Diners Club,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9070,AR BACS,PAY,Mapped,ar row 305; deposit row 311; guest row 296,
+9071,AR Voucher Redemption,PAY,Mapped,guest row 297,Ledger section determines destination. Unavailable voucher rows in AR/deposit remain blocked.
+9097,Travel Agent Commission,PAY,Mapped,ar row 306; deposit row 312; guest row 298,
+9098,CC Commission,PAY,Mapped,ar row 306; deposit row 312; guest row 298,
+9099,Pre Paid Commission,PAY,Mapped,ar row 306; deposit row 312; guest row 298,
+9100,Offline - American Express,PAY,Mapped,ar row 303; deposit row 309; guest row 293,
+9101,Offline - Mastercard,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9102,Offline - Visa,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9103,Offline - Maestro,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9104,Offline - JCB,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9105,Offline - Diners Club,PAY,Mapped,ar row 302; deposit row 308; guest row 292,
+9199,Direct Settlement,PAY,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+9664,Web Payment,PAY,Mapped,ar row 304; deposit row 310; guest row 294,
+9665,Web Payment - Premier Spa,PAY,Needs review,,Banking destination needs confirmation; import stops if this code appears.
+9950,Balance Carried Forward @20%,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.
+9951,Balance Carried Forward @0%,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.
+9990,Deposit Matured,MF_INTP,Needs review,,Internal posting: manual review if present in trial balance.
+9991,Deposit Carried Forward,MF_INTP,Needs review,,Internal posting: manual review if present in trial balance.
+9995,A/R Balance Forward,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.
+9996,A/R Credit Card Transfer,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.
+9997,Currency Exchange Paid Out,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.
+9998,Cheque Shift Drop,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.
+9999,Cash Shift Drop,MF_INTC,Needs review,,Internal posting: manual review if present in trial balance.

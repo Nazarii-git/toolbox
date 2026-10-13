@@ -1,13 +1,200 @@
 {
   "confirmed": true,
-  "notes": "Grouping confirmed by user for supplied Station Hotel report. Unknown codes stop import. Codes missing from a report leave destination rows blank.",
+  "notes": "Existing grouping confirmed by user; additional direct bar/restaurant, VAT, named payment-method, no-show/cancellation/long-stay, visitor levy, gratuity and donation mappings derived from posting catalogue and workbook row labels. Other codes require review. Payment ledger is determined from the report section, not the code prefix.",
   "rules": [
+    {
+      "group": "ar",
+      "row": 301,
+      "codes": [
+        "9000",
+        "9020",
+        "9040",
+        "9060"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 302,
+      "codes": [
+        "9004",
+        "9005",
+        "9006",
+        "9007",
+        "9008",
+        "9025",
+        "9026",
+        "9027",
+        "9028",
+        "9029",
+        "9030",
+        "9044",
+        "9045",
+        "9046",
+        "9047",
+        "9048",
+        "9064",
+        "9065",
+        "9066",
+        "9067",
+        "9068",
+        "9101",
+        "9102",
+        "9103",
+        "9104",
+        "9105"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 303,
+      "codes": [
+        "9003",
+        "9024",
+        "9043",
+        "9063",
+        "9100"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 304,
+      "codes": [
+        "9015",
+        "9664"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 305,
+      "codes": [
+        "9010",
+        "9050",
+        "9070"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "ar",
+      "row": 306,
+      "codes": [
+        "9097",
+        "9098",
+        "9099"
+      ],
+      "sign": -1
+    },
     {
       "group": "daily",
       "row": 13,
       "codes": [
         "1000",
         "1015"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 14,
+      "codes": [
+        "1004"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 15,
+      "codes": [
+        "1001"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 16,
+      "codes": [
+        "1002"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 19,
+      "codes": [
+        "2010"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 20,
+      "codes": [
+        "2011"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 21,
+      "codes": [
+        "2013",
+        "2014"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 22,
+      "codes": [
+        "2012"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 24,
+      "codes": [
+        "3010",
+        "3015"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 25,
+      "codes": [
+        "3011",
+        "3016"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 26,
+      "codes": [
+        "3013",
+        "3014",
+        "3018",
+        "3019"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 27,
+      "codes": [
+        "3012"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 28,
+      "codes": [
+        "4301"
       ],
       "sign": 1
     },
@@ -31,15 +218,25 @@
       "group": "daily",
       "row": 32,
       "codes": [
-        "2003"
+        "2003",
+        "2004"
       ],
       "sign": 1
     },
     {
       "group": "daily",
-      "row": 21,
+      "row": 33,
       "codes": [
-        "2013"
+        "2002"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 35,
+      "codes": [
+        "3000",
+        "3005"
       ],
       "sign": 1
     },
@@ -47,7 +244,8 @@
       "group": "daily",
       "row": 36,
       "codes": [
-        "3001"
+        "3001",
+        "3006"
       ],
       "sign": 1
     },
@@ -56,24 +254,25 @@
       "row": 37,
       "codes": [
         "3003",
-        "3008"
+        "3004",
+        "3008",
+        "3009"
       ],
       "sign": 1
     },
     {
       "group": "daily",
-      "row": 25,
+      "row": 38,
       "codes": [
-        "3011"
+        "3002"
       ],
       "sign": 1
     },
     {
       "group": "daily",
-      "row": 26,
+      "row": 39,
       "codes": [
-        "3013",
-        "3014"
+        "4300"
       ],
       "sign": 1
     },
@@ -82,6 +281,14 @@
       "row": 275,
       "codes": [
         "4501"
+      ],
+      "sign": 1
+    },
+    {
+      "group": "daily",
+      "row": 277,
+      "codes": [
+        "7102"
       ],
       "sign": 1
     },
@@ -103,118 +310,43 @@
     },
     {
       "group": "daily",
-      "row": 286,
+      "row": 283,
       "codes": [
-        "7000"
+        "5010"
       ],
       "sign": 1
     },
     {
-      "group": "guest",
-      "row": 290,
+      "group": "daily",
+      "row": 285,
       "codes": [
-        "9000",
-        "9020"
+        "8000"
       ],
-      "sign": -1
+      "sign": 1
     },
     {
-      "group": "guest",
-      "row": 292,
+      "group": "daily",
+      "row": 286,
       "codes": [
-        "9004",
-        "9005",
-        "9025",
-        "9026"
+        "7000",
+        "7001",
+        "7005",
+        "7009",
+        "7010",
+        "7011",
+        "7012",
+        "7015"
       ],
-      "sign": -1
-    },
-    {
-      "group": "guest",
-      "row": 293,
-      "codes": [
-        "9003",
-        "9024"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "guest",
-      "row": 294,
-      "codes": [
-        "9015",
-        "9664"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "guest",
-      "row": 296,
-      "codes": [
-        "9050"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "guest",
-      "row": 299,
-      "codes": [
-        "9002"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "ar",
-      "row": 301,
-      "codes": [
-        "9000",
-        "9020"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "ar",
-      "row": 302,
-      "codes": [
-        "9004",
-        "9005",
-        "9025",
-        "9026"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "ar",
-      "row": 303,
-      "codes": [
-        "9003",
-        "9024"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "ar",
-      "row": 304,
-      "codes": [
-        "9015",
-        "9664"
-      ],
-      "sign": -1
-    },
-    {
-      "group": "ar",
-      "row": 305,
-      "codes": [
-        "9050"
-      ],
-      "sign": -1
+      "sign": 1
     },
     {
       "group": "deposit",
       "row": 307,
       "codes": [
         "9000",
-        "9020"
+        "9020",
+        "9040",
+        "9060"
       ],
       "sign": -1
     },
@@ -224,8 +356,30 @@
       "codes": [
         "9004",
         "9005",
+        "9006",
+        "9007",
+        "9008",
         "9025",
-        "9026"
+        "9026",
+        "9027",
+        "9028",
+        "9029",
+        "9030",
+        "9044",
+        "9045",
+        "9046",
+        "9047",
+        "9048",
+        "9064",
+        "9065",
+        "9066",
+        "9067",
+        "9068",
+        "9101",
+        "9102",
+        "9103",
+        "9104",
+        "9105"
       ],
       "sign": -1
     },
@@ -234,7 +388,10 @@
       "row": 309,
       "codes": [
         "9003",
-        "9024"
+        "9024",
+        "9043",
+        "9063",
+        "9100"
       ],
       "sign": -1
     },
@@ -251,9 +408,1345 @@
       "group": "deposit",
       "row": 311,
       "codes": [
-        "9050"
+        "9010",
+        "9050",
+        "9070"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "deposit",
+      "row": 312,
+      "codes": [
+        "9097",
+        "9098",
+        "9099"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 290,
+      "codes": [
+        "9000",
+        "9020",
+        "9040",
+        "9060"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 292,
+      "codes": [
+        "9004",
+        "9005",
+        "9006",
+        "9007",
+        "9008",
+        "9025",
+        "9026",
+        "9027",
+        "9028",
+        "9029",
+        "9030",
+        "9044",
+        "9045",
+        "9046",
+        "9047",
+        "9048",
+        "9064",
+        "9065",
+        "9066",
+        "9067",
+        "9068",
+        "9101",
+        "9102",
+        "9103",
+        "9104",
+        "9105"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 293,
+      "codes": [
+        "9003",
+        "9024",
+        "9043",
+        "9063",
+        "9100"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 294,
+      "codes": [
+        "9015",
+        "9664"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 296,
+      "codes": [
+        "9010",
+        "9050",
+        "9070"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 297,
+      "codes": [
+        "9011",
+        "9032",
+        "9033",
+        "9034",
+        "9035",
+        "9051",
+        "9071"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 298,
+      "codes": [
+        "9097",
+        "9098",
+        "9099"
+      ],
+      "sign": -1
+    },
+    {
+      "group": "guest",
+      "row": 299,
+      "codes": [
+        "9002"
       ],
       "sign": -1
     }
-  ]
+  ],
+  "catalogue": {
+    "9950": {
+      "name": "Balance Carried Forward @20%",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "9951": {
+      "name": "Balance Carried Forward @0%",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "9995": {
+      "name": "A/R Balance Forward",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "9996": {
+      "name": "A/R Credit Card Transfer",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "9997": {
+      "name": "Currency Exchange Paid Out",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "9998": {
+      "name": "Cheque Shift Drop",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "9999": {
+      "name": "Cash Shift Drop",
+      "source_group": "MF_INTC",
+      "subgroup": "MF_INTC"
+    },
+    "8000": {
+      "name": "Donation - Trees For Life",
+      "source_group": "NON_REV",
+      "subgroup": "CHA"
+    },
+    "7000": {
+      "name": "VAT@20%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7001": {
+      "name": "VAT@5%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7005": {
+      "name": "VAT@4%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7009": {
+      "name": "VAT @1%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7010": {
+      "name": "VAT@0%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7011": {
+      "name": "VAT@12.5%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7012": {
+      "name": "VAT@2.5%",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "7015": {
+      "name": "VAT Exempt",
+      "source_group": "NON_REV",
+      "subgroup": "VAT"
+    },
+    "1000": {
+      "name": "Accommodation",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1001": {
+      "name": "No Show Charge",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1002": {
+      "name": "Cancellation Fee",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1003": {
+      "name": "Early Departure Fee",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1004": {
+      "name": "Accommodation Long Stay",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1005": {
+      "name": "Early Check In Fee",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1006": {
+      "name": "Late Check Out Fee",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1007": {
+      "name": "Complaint",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1015": {
+      "name": "Nor1 Bedroom Upgrade",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1016": {
+      "name": "ADJ Nor1 Bedroom Upgrade",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1017": {
+      "name": "Nor1 Late Checkout",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1018": {
+      "name": "Adj Nor1 Late Checkout",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1019": {
+      "name": "Nor1 Early Checkin",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "1020": {
+      "name": "Adj Nor1 Early Checkin",
+      "source_group": "REV",
+      "subgroup": "ACC"
+    },
+    "3000": {
+      "name": "Restaurant Breakfast Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3001": {
+      "name": "Restaurant Lunch Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3002": {
+      "name": "Restaurant Afternoon Tea Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3003": {
+      "name": "Restaurant Dinner Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3004": {
+      "name": "Restaurant Night Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3005": {
+      "name": "Restaurant Breakfast Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3006": {
+      "name": "Restaurant Lunch Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3008": {
+      "name": "Restaurant Dinner Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3009": {
+      "name": "Restaurant Night Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3010": {
+      "name": "Bar Breakfast Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3011": {
+      "name": "Bar Lunch Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3012": {
+      "name": "Bar Afternoon Tea Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3013": {
+      "name": "Bar Dinner Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3014": {
+      "name": "Bar Night Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3015": {
+      "name": "Bar Breakfast Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3016": {
+      "name": "Bar Lunch Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3018": {
+      "name": "Bar Dinner Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3019": {
+      "name": "Bar Night Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3020": {
+      "name": "Room Service Breakfast Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3021": {
+      "name": "Room Service Lunch Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3022": {
+      "name": "Room Service Afternoon Tea Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3023": {
+      "name": "Room Service Dinner Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3024": {
+      "name": "Room Service Night Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3025": {
+      "name": "Room Service Breakfast Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3026": {
+      "name": "Room Service Lunch Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3028": {
+      "name": "Room Service Dinner Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3029": {
+      "name": "Room Service Night Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3030": {
+      "name": "Ballroom Breakfast Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3031": {
+      "name": "Ballroom Lunch Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3032": {
+      "name": "Ballroom Afternoon Tea Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3033": {
+      "name": "Ballroom Dinner Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3034": {
+      "name": "Ballroom Night Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3035": {
+      "name": "Ballroom Breakfast Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3036": {
+      "name": "Ballroom Lunch Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3038": {
+      "name": "Ballroom Dinner Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3039": {
+      "name": "Ballroom Night Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3053": {
+      "name": "Nor1 Bottle of White Wine",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3054": {
+      "name": "Nor1 ADJ Bottle of White Wine",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3059": {
+      "name": "Nor1 Bottle of Red Wine",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3063": {
+      "name": "Nor1 ADJ Bottle of Red Wine",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3101": {
+      "name": "Soft Drink 5% VAT",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "3500": {
+      "name": "Minibar",
+      "source_group": "REV",
+      "subgroup": "BEV"
+    },
+    "2495": {
+      "name": "Banquet Breakfast Food",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "2500": {
+      "name": "Banquet Lunch Food",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "2505": {
+      "name": "Banquet Dinner Food",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "2610": {
+      "name": "Banquet Other Buffet",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "2630": {
+      "name": "Banquet Other Seated",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "2640": {
+      "name": "Banquet Teas & Coffees",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "3157": {
+      "name": "Banquet Lunch Beverage",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "3158": {
+      "name": "Banquet Dinner Beverage",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "3159": {
+      "name": "Banquet Breakfast Beverage",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "3160": {
+      "name": "Banquet Late Beverage",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "4307": {
+      "name": "Banquet Miscallaeneous",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "4552": {
+      "name": "Banquet Corkage",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "4902": {
+      "name": "Banquet Room Hire",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "4960": {
+      "name": "Banquet Equipment Hire",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "4962": {
+      "name": "Banquet External Supllies",
+      "source_group": "REV",
+      "subgroup": "BQT"
+    },
+    "2800": {
+      "name": "Conference Breakfast Food",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "2805": {
+      "name": "Conference Lunch Food",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "2810": {
+      "name": "Conference Dinner Food",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "3800": {
+      "name": "Conference Breakfast Beverage",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "3805": {
+      "name": "Conference Lunch Beverage",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "3810": {
+      "name": "Conference Dinner Beverage",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "3850": {
+      "name": "Conference Breakfast Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "3855": {
+      "name": "Conference Lunch Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "3860": {
+      "name": "Conference Dinner Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4305": {
+      "name": "Conference Miscellaneous",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4900": {
+      "name": "Conference Room Hire",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4910": {
+      "name": "Equipment Hire",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4911": {
+      "name": "Conference Entertainment",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4912": {
+      "name": "Conference External Supplies",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4930": {
+      "name": "Conference",
+      "source_group": "REV",
+      "subgroup": "CEV"
+    },
+    "4000": {
+      "name": "Telephone",
+      "source_group": "REV",
+      "subgroup": "COMM"
+    },
+    "4050": {
+      "name": "Fax",
+      "source_group": "REV",
+      "subgroup": "COMM"
+    },
+    "4920": {
+      "name": "Photocopying",
+      "source_group": "REV",
+      "subgroup": "COMM"
+    },
+    "2000": {
+      "name": "Restaurant Breakfast Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2001": {
+      "name": "Restaurant Lunch Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2002": {
+      "name": "Restaurant Afternoon Tea",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2003": {
+      "name": "Restaurant Dinner Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2004": {
+      "name": "Restaurant Night Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2005": {
+      "name": "Breakfast Supplement",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2006": {
+      "name": "Lunch Supplement",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2007": {
+      "name": "Dinner Supplement",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2008": {
+      "name": "Night Supplement",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2010": {
+      "name": "Bar Breakfast Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2011": {
+      "name": "Bar Lunch Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2012": {
+      "name": "Bar Afternoon Tea",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2013": {
+      "name": "Bar Dinner Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2014": {
+      "name": "Bar Night Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2015": {
+      "name": "Nor1 Afternoon Tea",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2016": {
+      "name": "ADJ Nor1 Afternoon Tea",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2020": {
+      "name": "Room Service Breakfast Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2021": {
+      "name": "Room Service Lunch Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2022": {
+      "name": "Room Service Afternoon Tea",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2023": {
+      "name": "Room Service Dinner Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2024": {
+      "name": "Room Service Night Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2025": {
+      "name": "Nor1 Breakfast Upgrade",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2026": {
+      "name": "Adj Nor1 Breakfast Upsell",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2030": {
+      "name": "Ballroom Breakfast Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2031": {
+      "name": "Ballroom Lunch Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2032": {
+      "name": "Ballroom Afternoon Tea",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2033": {
+      "name": "Ballroom Dinner Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2034": {
+      "name": "Ballroom Night Food",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2050": {
+      "name": "Nor1 Dinner Upsell",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "2051": {
+      "name": "ADJ Nor1 Dinner Upsell",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "4931": {
+      "name": "Conference Tea and Coffee",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "7400": {
+      "name": "Package Profit",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "7405": {
+      "name": "Package Loss",
+      "source_group": "REV",
+      "subgroup": "FOOD"
+    },
+    "7102": {
+      "name": "Aberdeen Levy Fee - 20% VAT",
+      "source_group": "REV",
+      "subgroup": "LEVYFEE"
+    },
+    "1066": {
+      "name": "Pet Charge",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4051": {
+      "name": "Nor1 Pet Package",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4300": {
+      "name": "Restaurant Miscellaneous",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4301": {
+      "name": "Bar Miscellaneous",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4302": {
+      "name": "Room Service Miscellaneous",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4440": {
+      "name": "Sundries Vatable",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4450": {
+      "name": "Visitor Paid Out",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4460": {
+      "name": "VPO Postage",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4470": {
+      "name": "VPO Tickets",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4480": {
+      "name": "VPO Taxi Fare",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4490": {
+      "name": "VPO City Tour",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4500": {
+      "name": "Porterage Service",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4501": {
+      "name": "Luggage Storage Fee",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4510": {
+      "name": "Newspaper",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4550": {
+      "name": "Corkage",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4600": {
+      "name": "Laundry/Dry Cleaning",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4700": {
+      "name": "Theatre Tickets",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4750": {
+      "name": "Car Parking",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4800": {
+      "name": "Pay Movies",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4810": {
+      "name": "Communication Service",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4820": {
+      "name": "Games",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "4850": {
+      "name": "Health Club",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "5000": {
+      "name": "Service Charge",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "5001": {
+      "name": "Tray Charge",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "5010": {
+      "name": "Gratuities",
+      "source_group": "REV",
+      "subgroup": "MISC"
+    },
+    "2700": {
+      "name": "Wedding Food",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "3700": {
+      "name": "Wedding Beverage",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "3750": {
+      "name": "Wedding Soft Beverage",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4306": {
+      "name": "Wedding Miscallaeneous",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4551": {
+      "name": "Wedding Corkage",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4901": {
+      "name": "Wedding Room Hire",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4950": {
+      "name": "Wedding Equipment Hire",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4951": {
+      "name": "Wedding Entertainment",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4952": {
+      "name": "Wedding External Supplies",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4961": {
+      "name": "Banquet Entertainment",
+      "source_group": "REV",
+      "subgroup": "WED"
+    },
+    "4720": {
+      "name": "Wellness - Sleep Retreat",
+      "source_group": "REV",
+      "subgroup": "WEL"
+    },
+    "4726": {
+      "name": "Wellness - Robe & Slippers",
+      "source_group": "REV",
+      "subgroup": "WEL"
+    },
+    "4728": {
+      "name": "Nor 1 Wellness - Sleep Retreat",
+      "source_group": "REV",
+      "subgroup": "WEL"
+    },
+    "4733": {
+      "name": "Nor 1 Wellness - Face Mask",
+      "source_group": "REV",
+      "subgroup": "WEL"
+    },
+    "4734": {
+      "name": "Nor1 Wellness - Robe & Slippers",
+      "source_group": "REV",
+      "subgroup": "WEL"
+    },
+    "9990": {
+      "name": "Deposit Matured",
+      "source_group": "MF_INTP",
+      "subgroup": "MF_INTP"
+    },
+    "9991": {
+      "name": "Deposit Carried Forward",
+      "source_group": "MF_INTP",
+      "subgroup": "MF_INTP"
+    },
+    "9000": {
+      "name": "Cash Payment",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9001": {
+      "name": "Cheque Payment",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9020": {
+      "name": "POS Cash",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9021": {
+      "name": "POS Cheque",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9040": {
+      "name": "DEPOSIT Cash",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9041": {
+      "name": "DEPOSIT Cheque",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9060": {
+      "name": "AR Cash",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9061": {
+      "name": "AR Cheque",
+      "source_group": "PAY",
+      "subgroup": "CA"
+    },
+    "9003": {
+      "name": "American Express",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9004": {
+      "name": "Mastercard",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9005": {
+      "name": "Visa",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9006": {
+      "name": "Maestro",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9007": {
+      "name": "JCB",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9008": {
+      "name": "Diners Card",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9024": {
+      "name": "POS American Express",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9025": {
+      "name": "POS Mastercard",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9026": {
+      "name": "POS Visa",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9027": {
+      "name": "POS Maestro",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9028": {
+      "name": "POS JCB",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9029": {
+      "name": "POS Diners",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9030": {
+      "name": "POS China Union Pay",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9043": {
+      "name": "DEPOSIT American Express",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9044": {
+      "name": "DEPOSIT Mastercard",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9045": {
+      "name": "DEPOSIT Visa",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9046": {
+      "name": "DEPOSIT Maestro",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9047": {
+      "name": "DEPOSIT JCB",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9048": {
+      "name": "DEPOSIT Diners Club",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9063": {
+      "name": "AR American Express",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9064": {
+      "name": "AR Mastercard",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9065": {
+      "name": "AR Visa",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9066": {
+      "name": "AR Maestro",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9067": {
+      "name": "AR JCB",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9068": {
+      "name": "AR Diners Club",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9100": {
+      "name": "Offline - American Express",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9101": {
+      "name": "Offline - Mastercard",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9102": {
+      "name": "Offline - Visa",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9103": {
+      "name": "Offline - Maestro",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9104": {
+      "name": "Offline - JCB",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9105": {
+      "name": "Offline - Diners Club",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9199": {
+      "name": "Direct Settlement",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9664": {
+      "name": "Web Payment",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9665": {
+      "name": "Web Payment - Premier Spa",
+      "source_group": "PAY",
+      "subgroup": "CC"
+    },
+    "9002": {
+      "name": "Ledger Payment",
+      "source_group": "PAY",
+      "subgroup": "LEDGER"
+    },
+    "9010": {
+      "name": "BACS Payment",
+      "source_group": "PAY",
+      "subgroup": "LEDGER"
+    },
+    "9050": {
+      "name": "DEPOSIT BACS",
+      "source_group": "PAY",
+      "subgroup": "LEDGER"
+    },
+    "9070": {
+      "name": "AR BACS",
+      "source_group": "PAY",
+      "subgroup": "LEDGER"
+    },
+    "9011": {
+      "name": "Voucher Redemption",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9015": {
+      "name": "Pay By Link",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9032": {
+      "name": "POS Voucher Redemption",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9033": {
+      "name": "POS Groupon",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9034": {
+      "name": "POS ITISON",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9035": {
+      "name": "POS Wowcher",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9051": {
+      "name": "DEPOSIT Voucher Redemption",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9071": {
+      "name": "AR Voucher Redemption",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9097": {
+      "name": "Travel Agent Commission",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9098": {
+      "name": "CC Commission",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "9099": {
+      "name": "Pre Paid Commission",
+      "source_group": "PAY",
+      "subgroup": "OTH_PAY"
+    },
+    "1400": {
+      "name": "Accommodation Package",
+      "source_group": "PKG",
+      "subgroup": "PKG"
+    },
+    "1500": {
+      "name": "Bed & Breakfast Rate",
+      "source_group": "PKG",
+      "subgroup": "PKG"
+    },
+    "1501": {
+      "name": "Dinner, Bed & Breakfast Rate",
+      "source_group": "PKG",
+      "subgroup": "PKG"
+    },
+    "1502": {
+      "name": "24 Hour Delegate Rate",
+      "source_group": "PKG",
+      "subgroup": "PKG"
+    },
+    "1503": {
+      "name": "Day Delegate Rate",
+      "source_group": "PKG",
+      "subgroup": "PKG"
+    }
+  }
 }
