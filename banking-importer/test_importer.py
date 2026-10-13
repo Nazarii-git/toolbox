@@ -72,7 +72,7 @@ class ImportTests(unittest.TestCase):
 
     def test_department_rules_and_signed_adjustments(self):
         rules = {(r['group'], code): r['row'] for r in self.config['rules'] for code in r['codes']}
-        for code, row in [('2020', 30), ('3023', 37), ('3054', 34), ('4900', 40), ('2700', 43), ('2033', 46), ('3810', 51), ('4950', 54)]:
+        for code, row in [('1066', 13), ('4051', 13), ('2020', 30), ('3023', 37), ('3054', 34), ('4900', 40), ('2700', 43), ('2033', 46), ('3810', 51), ('4950', 54)]:
             self.assertEqual(rules['daily', code], row)
         report = self.report([DAILY.replace('7102 Aberdeen Levy Fee - 20% VAT 10.00', '3053 Nor1 Bottle of White Wine 15.00\n3054 Nor1 ADJ Bottle of White Wine - 5.00'), LEDGERS, MANAGER])
         rows = importer.plan(report, self.config)
