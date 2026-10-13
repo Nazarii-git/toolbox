@@ -112,6 +112,16 @@ class ImportTests(unittest.TestCase):
             result = importer.append_explanation(z, text, 'L336', 'New correction')
             self.assertIn('Existing explanation &amp; details\nNew correction', result)
 
+    def test_export_requests_excel_recalculation(self):
+        import xml.etree.ElementTree as ET
+        for calc in ('<calcPr calcId="191029" calcMode="manual"/>', ''):
+            raw = ('<workbook xmlns="' + importer.NS['s'] + '"><sheets/>' + calc + '<extLst/></workbook>').encode()
+            result = ET.fromstring(importer.request_recalculation(raw))
+            props = result.find('s:calcPr', importer.NS)
+            self.assertEqual(props.attrib['calcMode'], 'auto')
+            self.assertEqual(props.attrib['fullCalcOnLoad'], '1')
+            self.assertEqual(props.attrib['forceFullCalc'], '1')
+
     def test_mapping_is_unique_and_codes_exist(self):
         seen = set()
         for rule in self.config['rules']:

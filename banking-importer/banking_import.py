@@ -276,6 +276,26 @@ def append_explanation(src, text, ref, note):
     replacement = opening + ' t="inlineStr"><is><t xml:space="preserve">' + escape(value) + '</t></is></c>'
     return text[:match.start()] + replacement + text[match.end():]
 
+def request_recalculation(data):
+    """Tell Excel to refresh formula caches when opening the exported copy."""
+    text = data.decode('utf-8')
+    match = re.search(r'<calcPr\b[^>]*(?:/>|>\s*</calcPr>)', text)
+    flags = {'calcMode': 'auto', 'fullCalcOnLoad': '1', 'forceFullCalc': '1', 'calcOnSave': '1'}
+    if match:
+        element = ET.fromstring(match[0])
+        element.attrib.update(flags)
+        replacement = ET.tostring(element, encoding='unicode')
+        text = text[:match.start()] + replacement + text[match.end():]
+    else:
+        closing = text.rfind('</workbook>')
+        require(closing >= 0, 'Unsupported workbook XML; cannot request recalculation.')
+        replacement = '<calcPr ' + ' '.join(f'{k}="{v}"' for k, v in flags.items()) + '/>'
+        # calcPr belongs before workbook extension elements, when present.
+        extensions = text.find('<extLst')
+        position = extensions if extensions >= 0 else closing
+        text = text[:position] + replacement + text[position:]
+    return text.encode('utf-8')
+
 def _write_copy(source, output, target, col, rows, corrections=None):
     require(source.resolve() != output.resolve(), 'Output must be a separate workbook.')
     require(not output.exists(), f'Output already exists: {output}')
@@ -283,6 +303,8 @@ def _write_copy(source, output, target, col, rows, corrections=None):
         style_data, red_styles = correction_styles(src, target, col, corrections)
         for entry in src.infolist():
             data = src.read(entry.filename)
+            if entry.filename == 'xl/workbook.xml':
+                data = request_recalculation(data)
             if entry.filename == 'xl/styles.xml' and corrections:
                 data = style_data
             if entry.filename == target:
