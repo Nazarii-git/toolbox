@@ -17,6 +17,7 @@ function showPage(number, moveFocus = true) {
     page.hidden = page.dataset.page !== String(number);
   });
   document.querySelectorAll('[data-step-label]').forEach(label => {
+    label.classList.toggle('completed', Number(label.dataset.stepLabel) < Number(number));
     if (label.dataset.stepLabel === String(number)) label.setAttribute('aria-current', 'step');
     else label.removeAttribute('aria-current');
   });
