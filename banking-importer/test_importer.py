@@ -154,6 +154,24 @@ class ImportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Expected night audit pages'):
             self.report([DAILY, LEDGERS, 'Station Hotel Aberdeen 12/10/26 Unknown report'])
 
+    def test_reception_summary_missing_figures_and_nominal_groups(self):
+        import xml.etree.ElementTree as ET
+        report = self.report([DAILY, LEDGERS])
+        rows = importer.plan(report, self.config)
+        rows[30] = (importer.Decimal('12.34'), 'Food')
+        rows[23] = (importer.Decimal('5.67'), 'Drinks')
+        rows[290] = (importer.Decimal('9.00'), 'Cash')
+        cells = {f'B{r}': ET.fromstring('<c xmlns="' + importer.NS['s'] + '" resolved_value="' + code + '"><v>3</v></c>') for r, code in [(30, '42001'), (23, '43000')]}
+        result = importer.reception_summary(report, rows, cells)
+        self.assertTrue(all(m['value'] == '' for m in result['metrics'][:5]))
+        self.assertEqual(result['metrics'][5]['value'], '12.34')
+        self.assertEqual(result['metrics'][6]['value'], '5.67')
+        self.assertEqual(result['metrics'][7]['value'], '')
+        self.assertEqual(result['cash'], '9.00')
+        self.assertEqual(result['vouchers'], [])
+        report['groups']['daily']['9011'] = ('Voucher Redemption', importer.Decimal('-20'))
+        self.assertEqual(len(importer.reception_summary(report, rows, cells)['vouchers']), 1)
+
     def test_mapping_is_unique_and_codes_exist(self):
         seen = set()
         for rule in self.config['rules']:

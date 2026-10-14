@@ -19,7 +19,16 @@ body{font-family:system-ui,sans-serif;background:#f4f6f8;color:#183046;margin:0}
 {% if result.success %}<a class="button" href="/download/workbook">Download updated Excel</a>{% endif %}
 {% if result.review %}<a class="button" href="/download/review">Download review CSV</a>{% endif %}
 {% if result.changes %}<details><summary>Review {{result.changes|length}} proposed entries</summary><div class="scroll"><table><thead><tr><th>Cell</th><th>Amount</th><th>Report details</th></tr></thead><tbody>{% for row in result.changes %}<tr><td>{{row.Cell}}</td><td>{{row.Amount}}</td><td>{{row.Source}}</td></tr>{% endfor %}</tbody></table></div></details>{% endif %}
-{% if result.success %}<p>Open the downloaded copy in Excel and recalculate the workbook. Cash banked and PDQ totals still need separate input. Use this copy for the next daily import.</p>{% endif %}
+{% if result.success and result.handover %}
+<section aria-label="Reception next steps"><h2>Next steps for reception</h2>
+<h3>1. Replace the banking file</h3><p>Download the updated Excel file above. Close the original in Excel, save the download in the banking folder and replace the existing file. Open the new file, recalculate and save it.</p>
+<h3>2. Complete the directors’ daily report</h3><p>Copy the figures below. Blank values were not available in the report. Food and drinks use the banking sheet’s Procure Wizard nominal groups across F&amp;B outlets.</p>
+<table><thead><tr><th>Figure</th><th>Value</th><th></th></tr></thead><tbody>{% for metric in result.handover.metrics %}<tr><td>{{metric.label}}</td><td><input aria-label="{{metric.label}}" id="metric-{{loop.index}}" value="{{metric.value}}" readonly></td><td>{% if metric.value %}<button type="button" data-copy="metric-{{loop.index}}">Copy</button>{% endif %}</td></tr>{% endfor %}</tbody></table>
+<label>All daily figures<textarea id="daily-figures" readonly rows="10" style="width:100%;box-sizing:border-box">{{result.handover.copy_text}}</textarea></label><button type="button" data-copy="daily-figures">Copy all figures</button><p id="copy-status" role="status"></p>
+<h3>3. Prepare the cash drop</h3><p>Expected total cash receipts: <strong>£{{result.handover.cash}}</strong> (banking Total Cash). Count the cash, account for petty cash and any change movements, then enter Actual Cash Banked and PDQ totals manually.</p>
+<h3>4. Check vouchers</h3>{% if result.handover.vouchers %}<div class="notice"><strong>Voucher activity found — action required</strong><ul>{% for voucher in result.handover.vouchers %}<li>{{voucher}}</li>{% endfor %}</ul><p>Find each voucher and enter its reference code in the workbook’s Vouchers sheet manually.</p></div>{% else %}<p>No nonzero voucher postings were found in the report.</p>{% endif %}
+<h3>5. Email the completed banking file</h3><p>Check any red corrections and explanations, finish the manual entries, recalculate and save. Email the final banking workbook to the managers.</p></section>
+{% endif %}
 {% endif %}
 <footer class="muted">{% if config.SESSION_COOKIE_SECURE %}Files are processed on this private deployment.{% else %}Runs locally on your computer.{% endif %} Your original files are preserved. Downloads remain available until you submit another import or close the program.</footer>
-{% if session.authenticated %}<form method="post" action="/logout"><input type="hidden" name="csrf" value="{{csrf}}"><button type="submit">Log out</button></form>{% endif %}</main></body></html>
+{% if session.authenticated %}<form method="post" action="/logout"><input type="hidden" name="csrf" value="{{csrf}}"><button type="submit">Log out</button></form>{% endif %}</main><script src="/static/handover.js" defer></script></body></html>

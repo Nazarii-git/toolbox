@@ -4,6 +4,7 @@ import os
 import time
 from datetime import timedelta
 import io
+import json
 import secrets
 import subprocess
 import sys
@@ -119,7 +120,8 @@ def index():
                     store[token] = {'owner': owner, 'filename': download_name, 'review': review, 'workbook': files[0].read_bytes() if run.returncode == 0 and files else None}
                     session['result'] = token
                     result = dict(success=run.returncode == 0, balances=balances, notices=notices, changes=changes, review=review is not None,
-                                  date=entries[0]['Date'] if entries else '', sheet=entries[0]['Sheet'] if entries else '')
+                                  date=entries[0]['Date'] if entries else '', sheet=entries[0]['Sheet'] if entries else '',
+                                  handover=json.loads((root / 'output' / 'reception-summary.json').read_text()) if (root / 'output' / 'reception-summary.json').exists() else None)
                     if run.returncode:
                         error = run.stderr.strip().removeprefix('Import stopped: ') or 'The report could not be imported. Check the file format.'
                 except subprocess.TimeoutExpired:

@@ -98,16 +98,65 @@ def parse_report(path):
         require(match is not None and amount(match[1]) == revenue, 'Manager and trial balance revenue differ.')
     return {'date': date, 'groups': groups, 'stats': {7: stat('Rooms Occupied'), 9: stat('Total In-House Persons')} if has_manager else {},
             'has_manager': has_manager,
+            'manager_figures': manager_figures(manager),
             'transfer': field(deposit_text, 'Deposits Transfered at Check-In'),
             'opening': {320: field(first, 'Balance Brought Forward'), 321: field(ar_text, 'Balance Yesterday'), 322: field(deposit_text, 'Balance Yesterday')},
             'balances': {320: field(guest_text, 'Balance Today'), 321: field(ar_text, 'Balance Today'), 322: field(deposit_text, 'Balance Today')},
             'revenue': revenue, 'nonrevenue': nonrevenue, 'payments': payments, 'payment_codes': set(payment_codes), 'split_exceptions': split_exceptions}
+
+def manager_figures(text):
+    labels = ['Rooms Occupied', 'Total In-House Persons', 'ADR',
+              'Out of Order Rooms', 'Out of Service Rooms', 'Other Revenue']
+    values = {}
+    for label in labels:
+        match = re.search(r'^' + re.escape(label) + r'\s+(-?\s*\d[\d,]*(?:\.\d+)?)\s', text, re.M) if text else None
+        values[label] = amount(match[1]) if match else None
+    return values
+
+def reception_summary(report, rows, cells):
+    def money(value):
+        return '' if value is None else f'{value:.2f}'
+    def count(value):
+        return '' if value is None else str(int(value))
+    figures = report['manager_figures']
+    # Match the nominal-code groups used by Procure Wizard, using new entries
+    # rather than the workbook's potentially stale calculated totals.
+    food = drinks = Decimal(0)
+    for row, (value, _) in rows.items():
+        if not 18 <= row <= 253:
+            continue
+        cell = cells.get(f'B{row}')
+        nominal = cell.find('s:v', NS) if cell is not None else None
+        code = cell.attrib.get('resolved_value', nominal.text) if nominal is not None else None
+        if code in ('42000', '42001', '42002', '42003', '42004'):
+            food += value
+        elif code in ('43000', '43001', '43002', '43003', '43004'):
+            drinks += value
+    metrics = [
+        {'label': 'Rooms sold', 'value': count(figures['Rooms Occupied'])},
+        {'label': 'Sleepers', 'value': count(figures['Total In-House Persons'])},
+        {'label': 'ADR', 'value': money(figures['ADR'])},
+        {'label': 'Rooms OOO', 'value': count(figures['Out of Order Rooms'])},
+        {'label': 'Rooms OOS', 'value': count(figures['Out of Service Rooms'])},
+        {'label': 'Food revenue', 'value': money(food)},
+        {'label': 'Drinks revenue', 'value': money(drinks)},
+        {'label': 'Other revenue', 'value': money(figures['Other Revenue'])},
+    ]
+    vouchers = [f'{code} {label}: {value:+.2f}' for code, (label, value) in report['groups']['daily'].items()
+                if value and (code in ('9011', '9032', '9033', '9034', '9035', '9051', '9071')
+                              or 'voucher' in label.lower())]
+    cash = sum((rows.get(row, (Decimal(0), ''))[0] for row in (290, 301, 307)), Decimal(0))
+    return {'metrics': metrics, 'cash': money(cash), 'vouchers': vouchers,
+            'copy_text': 'Date: ' + str(report['date']) + '\n' + '\n'.join(m['label'] + ': ' + m['value'] for m in metrics)}
 
 def workbook_target(path, date):
     with zipfile.ZipFile(path) as z:
         wb = ET.fromstring(z.read('xl/workbook.xml'))
         rels = ET.fromstring(z.read('xl/_rels/workbook.xml.rels'))
         targets = {r.attrib['Id']: r.attrib['Target'] for r in rels}
+        shared_strings = []
+        if 'xl/sharedStrings.xml' in z.namelist():
+            shared_strings = [''.join(si.itertext()) for si in ET.fromstring(z.read('xl/sharedStrings.xml')).findall('s:si', NS)]
         matches = []
         for s in wb.find('s:sheets', NS):
             if not re.fullmatch(r'Week [1-6]', s.attrib['name']):
@@ -117,6 +166,10 @@ def workbook_target(path, date):
             target = target.lstrip('/') if target.startswith('/') else 'xl/' + target
             root = ET.fromstring(z.read(target))
             cells = {c.attrib['r']: c for c in root.findall('.//s:sheetData/s:row/s:c', NS)}
+            for cell in cells.values():
+                value = cell.find('s:v', NS)
+                if value is not None and cell.attrib.get('t') == 's':
+                    cell.attrib['resolved_value'] = shared_strings[int(value.text)]
             # Resolve shared formulas in memory only; the original XML is preserved on save.
             from openpyxl.formula.translate import Translator
             masters = {}
@@ -414,6 +467,8 @@ def run():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     review = args.output_dir / f'review-{report["date"]}.csv'
     require(not review.exists(), f'Review already exists: {review}; choose a new output directory.')
+    summary = reception_summary(report, rows, cells)
+    (args.output_dir / 'reception-summary.json').write_text(json.dumps(summary), encoding='utf-8')
     with review.open('x', newline='', encoding='utf-8-sig') as f:
         writer = csv.writer(f)
         writer.writerow(['Status', 'Date', 'Sheet', 'Cell', 'Amount', 'Source'])
