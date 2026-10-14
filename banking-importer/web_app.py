@@ -2,7 +2,8 @@
 import csv
 import os
 import time
-from datetime import timedelta
+from datetime import timedelta, datetime
+from zoneinfo import ZoneInfo
 import io
 import json
 import secrets
@@ -86,6 +87,8 @@ def index():
     session.setdefault('csrf', secrets.token_urlsafe(32))
     result = None
     error = None
+    if request.args.get('new') == '1':
+        app.extensions.get('results', {}).pop(session.pop('result', None), None)
     if request.method == 'POST':
         if not secrets.compare_digest(request.form.get('csrf', ''), session['csrf']):
             abort(403)
@@ -122,6 +125,8 @@ def index():
                     result = dict(success=run.returncode == 0, balances=balances, notices=notices, changes=changes, review=review is not None,
                                   date=entries[0]['Date'] if entries else '', sheet=entries[0]['Sheet'] if entries else '',
                                   handover=json.loads((root / 'output' / 'reception-summary.json').read_text()) if (root / 'output' / 'reception-summary.json').exists() else None)
+                    result['friday'] = (datetime.now(ZoneInfo('Europe/London')).weekday() == 4
+                                        or bool(result['date'] and datetime.strptime(result['date'], '%Y-%m-%d').weekday() == 4))
                     if run.returncode:
                         error = run.stderr.strip().removeprefix('Import stopped: ') or 'The report could not be imported. Check the file format.'
                 except subprocess.TimeoutExpired:

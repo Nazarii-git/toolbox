@@ -12,3 +12,38 @@ document.addEventListener('click', async (event) => {
     status.textContent = 'Text selected. Press Command+C on Mac or Ctrl+C on Windows to copy.';
   }
 });
+function showPage(number, moveFocus = true) {
+  document.querySelectorAll('[data-page]').forEach(page => {
+    page.hidden = page.dataset.page !== String(number);
+  });
+  document.querySelectorAll('[data-step-label]').forEach(label => {
+    if (label.dataset.stepLabel === String(number)) label.setAttribute('aria-current', 'step');
+    else label.removeAttribute('aria-current');
+  });
+  if (moveFocus) document.querySelector(`[data-page="${number}"] h1`)?.focus();
+  window.scrollTo(0, 0);
+}
+document.addEventListener('click', event => {
+  const navigation = event.target.closest('[data-go]');
+  if (navigation) showPage(navigation.dataset.go);
+});
+document.getElementById('to-report')?.addEventListener('click', () => {
+  const field = document.getElementById('workbook-file');
+  if (!field.reportValidity()) return;
+  const error = document.getElementById('file-error');
+  if (!field.files[0].name.toLowerCase().endsWith('.xlsx')) {
+    error.textContent = 'Choose an Excel .xlsx workbook.';
+    error.hidden = false;
+    return;
+  }
+  error.hidden = true;
+  document.getElementById('selected-workbook').textContent = 'Banking file: ' + field.files[0].name;
+  showPage(2);
+});
+document.getElementById('import-form')?.addEventListener('submit', () => {
+  const button = document.getElementById('process-button');
+  button.disabled = true;
+  document.getElementById('processing-message').hidden = false;
+});
+const firstVisible = document.querySelector('[data-page]:not([hidden])');
+if (firstVisible) showPage(firstVisible.dataset.page, false);
