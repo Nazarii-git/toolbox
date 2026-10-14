@@ -30,7 +30,7 @@ login_failures = []
 
 @app.before_request
 def protect_pages():
-    if PASSWORD_HASH and request.endpoint not in ('login', 'robots', 'health') and not session.get('authenticated'):
+    if PASSWORD_HASH and request.endpoint not in ('login', 'robots', 'health', 'static') and not session.get('authenticated'):
         return redirect(url_for('login'))
 
 @app.after_request
