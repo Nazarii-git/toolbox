@@ -26,7 +26,7 @@ function showPage(number, moveFocus = true) {
 }
 document.addEventListener('click', event => {
   const navigation = event.target.closest('[data-go]');
-  if (navigation) showPage(navigation.dataset.go);
+  if (navigation && !navigation.disabled) showPage(navigation.dataset.go);
 });
 document.getElementById('to-report')?.addEventListener('click', () => {
   const field = document.getElementById('workbook-file');
@@ -48,3 +48,22 @@ document.getElementById('import-form')?.addEventListener('submit', () => {
 });
 const firstVisible = document.querySelector('[data-page]:not([hidden])');
 if (firstVisible) showPage(firstVisible.dataset.page, false);
+
+for (const [inputId, confirmationId, extension] of [
+  ['workbook-file', 'workbook-selected', '.xlsx'],
+  ['report-file', 'report-selected', '.pdf']
+]) {
+  document.getElementById(inputId)?.addEventListener('change', event => {
+    const file = event.target.files[0];
+    const confirmation = document.getElementById(confirmationId);
+    const valid = Boolean(file && file.name.toLowerCase().endsWith(extension));
+    event.target.closest('label').classList.toggle('file-present', valid);
+    confirmation.hidden = !valid;
+    confirmation.textContent = valid ? '✓ Selected: ' + file.name : '';
+    event.target.setCustomValidity(file && !valid ? 'Choose a ' + extension + ' file.' : '');
+  });
+}
+document.getElementById('workbook-download')?.addEventListener('click', () => {
+  document.getElementById('to-handover').disabled = false;
+  document.getElementById('download-status').textContent = 'Download requested. Save it in the banking folder and replace the original before finishing.';
+});
