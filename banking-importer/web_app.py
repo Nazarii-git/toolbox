@@ -114,7 +114,9 @@ def index():
                     previous = session.get('result')
                     if previous: store.pop(previous, None)
                     if len(store) >= 20: store.pop(next(iter(store)))
-                    store[token] = {'owner': owner, 'review': review, 'workbook': files[0].read_bytes() if run.returncode == 0 and files else None}
+                    download_name = workbook.filename.replace('\\', '/').rsplit('/', 1)[-1]
+                    download_name = ''.join(ch for ch in download_name if ord(ch) >= 32 and ord(ch) != 127) or 'banking.xlsx'
+                    store[token] = {'owner': owner, 'filename': download_name, 'review': review, 'workbook': files[0].read_bytes() if run.returncode == 0 and files else None}
                     session['result'] = token
                     result = dict(success=run.returncode == 0, balances=balances, notices=notices, changes=changes, review=review is not None,
                                   date=entries[0]['Date'] if entries else '', sheet=entries[0]['Sheet'] if entries else '')
@@ -129,7 +131,7 @@ def download(kind):
     if kind not in ('workbook', 'review'): abort(404)
     saved = app.extensions.get('results', {}).get(session.get('result'))
     if not saved or saved['owner'] != session.get('owner') or saved[kind] is None: abort(404)
-    name = 'banking-updated.xlsx' if kind == 'workbook' else 'banking-review.csv'
+    name = saved.get('filename', 'banking.xlsx') if kind == 'workbook' else 'banking-review.csv'
     return send_file(io.BytesIO(saved[kind]), as_attachment=True, download_name=name)
 
 @app.errorhandler(413)
